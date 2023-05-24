@@ -468,7 +468,7 @@ Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admins','jwtmid
    Route::get('get_all_plants',[SapSummaryController::class,'getAllPlants']);
 
 
-
+//test
 
 		// Category Routes....
 
