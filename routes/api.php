@@ -458,6 +458,7 @@ Route::get('admin-logs-list',[AdminLogController::class,'adminLogsList']);//admi
 Route::get('admin-logs-del/{id}',[AdminLogController::class,'adminLogsDel']);//admin logs list
 
 Route::get('get_order_po_excel/{id}',[OrderManagementController::class,'getOrderByPoExcel']);
+Route::get('admin-get_all_rfq_export',[RfqManagementController::class,'getRfqAdminExport']);
 
 Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admins','jwtmiddleware']],function (){
 

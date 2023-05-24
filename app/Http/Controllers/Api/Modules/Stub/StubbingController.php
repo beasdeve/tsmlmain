@@ -341,7 +341,7 @@ class StubbingController extends Controller
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-          CURLOPT_URL => 'http://10.0.170.57:50000/RESTAdapter/CustomerLedgerBalance',
+          CURLOPT_URL => 'https://esalesqa.tatasteelmining.com:50001/RESTAdapter/CustomerLedgerBalance',
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => '',
           CURLOPT_MAXREDIRS => 10,
@@ -351,11 +351,11 @@ class StubbingController extends Controller
           CURLOPT_SSL_VERIFYHOST => 0,
           CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
           CURLOPT_CUSTOMREQUEST => 'POST',
-          CURLOPT_POSTFIELDS =>'{"CustomerLedgerBalance":{"CustomerNumber":"00500000951","FromDate":"2023-05-11","ToDate":"2023-05-17"}}'
+          CURLOPT_POSTFIELDS =>'{"CustomerLedgerBalance":{"CustomerNumber":"00500000951","FromDate":"20230511","ToDate":"20230517"}}'
           // CURLOPT_POSTFIELDS =>json_encode($request->sapLedgerRequest)
           ,
           CURLOPT_HTTPHEADER => array(
-            'Authorization: Basic TUpVTkNUSU9OX01fUElfREVWOldlbGNvbWVAMTIz',
+            'Authorization: Basic TUpVTkNUSU9OX01fUElfUUE6V2VsY29tZUAxMjM=',
             'Content-Type: application/json'
           ),
         ));
