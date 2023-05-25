@@ -94,11 +94,11 @@ Route::post('resest_pass_mail', [UserController::class,'resestpassMail']);
 
 // -------------------------------------------------------------------------------------
 // --------------------------- security ----------------------------------------------
-Route::post('store_security_question', [SecurityQuestionController::class,'StoreSecurityQue']);
+// Route::post('store_security_question', [SecurityQuestionController::class,'StoreSecurityQue']);
 Route::get('get_security_questions', [SecurityQuestionController::class,'getSecurityQue']);
 Route::get('get_security_questions_admin', [SecurityQuestionController::class,'getSecurityQueAdmin']);
 Route::put('edit_questions_admin/{secqueId?}', [SecurityQuestionController::class,'editSecurityQue']);
-Route::post('update_questions_admin', [SecurityQuestionController::class,'updateSecurityQue']);
+// Route::post('update_questions_admin', [SecurityQuestionController::class,'updateSecurityQue']);
 Route::post('save_security_qst_ans', [SecurityQuestionController::class,'saveSecurityQstAns']);
 Route::post('security_qstn_mail', [SecurityQuestionController::class,'securityQstnMail']);
 Route::post('force_logout', [AuthController::class,'fologout']);
@@ -647,8 +647,10 @@ Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admins','jwtmid
       Route::get('get_quote_sche_by_id/{id}',[RfqManagementController::class,'quoteScheById']);
    // -----------------------------------------------------------------------
 
+      // --------------------------- security ----------------------------------------------
+    Route::post('store_security_question', [SecurityQuestionController::class,'StoreSecurityQue']);
       
-
+    Route::post('update_questions_admin', [SecurityQuestionController::class,'updateSecurityQue']);
 
 });
 

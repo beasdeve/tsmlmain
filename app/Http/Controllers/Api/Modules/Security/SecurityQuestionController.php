@@ -45,11 +45,11 @@ class SecurityQuestionController extends Controller
 
     	   	$freightsData = SecurityQuestion::create($input);
 
-          // $user = Auth::user()->id;
-          // $sub = 'Security Question added';
-          // $purpose = 'Security Question added';
+          $user = Auth::user()->id;
+          $sub = 'Security Question added';
+          $purpose = 'Security Question added';
 
-          // $res = (new AdminLogsService)->adminlogs($user,$sub,$purpose);
+          $res = (new AdminLogsService)->adminlogs($user,$sub,$purpose);
 
     	   	\DB::commit();
 
@@ -159,7 +159,12 @@ class SecurityQuestionController extends Controller
 
               $catData = SecurityQuestion::where('id',$srch_reg->id)->first();
 
-              
+              $user = Auth::user()->id;
+              $sub = 'Security Question update';
+              $purpose = 'Security Question updated';
+
+              $res = (new AdminLogsService)->adminlogs($user,$sub,$purpose);
+                  
 
               return response()->json(['status'=>1,'message' =>'Security question updated successfully.'] );
 
