@@ -25,17 +25,17 @@ class QuoteEmailController extends Controller
     {
          $cc_email = array();
 
-    	 $rfq_no = $request->input('rfq_no');
-    	 $user_id = $request->input('user_id');
-    	 
+         $rfq_no = $request->input('rfq_no');
+         $user_id = $request->input('user_id');
+         
          
          $user = User::where('id',$user_id)->first();
 
          $cam = User::where('zone',$user->zone)->where('id','!=',$user_id)->where('user_type','Kam')->get()->toArray();
 
          foreach ($cam as $key => $value) {
-         	 
-         	  array_push($cc_email,$value['email']);
+             
+              array_push($cc_email,$value['email']);
          }
 
          $sub = 'Your RFQ has been raised successfully'.'   '.$rfq_no;
@@ -44,7 +44,7 @@ class QuoteEmailController extends Controller
 
          $data = "";
 
-    	 // $data['name'] = $user['name'];
+         // $data['name'] = $user['name'];
       //    $data['email'] = $user['email'];
       //    $data['rfq_no'] = $rfq_no;
       //    $data['cc'] = $cc_email;
@@ -355,8 +355,6 @@ class QuoteEmailController extends Controller
          $do_no = $request->input('do_no');
          // $po_no = $request->input('po_no');
         
-
-         $sub = 'DO has been updated against your PO.';
  
          $html = 'mail.docusmail';
          
@@ -377,12 +375,20 @@ class QuoteEmailController extends Controller
 
         $plant = DB::table('plants')->leftjoin('users','plants.name','users.name')->where('plants.code',$so->Plant)->first();
 
+        $subcat = DB::table('product_size_mat_no')->leftjoin('sub_categorys','product_size_mat_no.sub_cat_id','sub_categorys.id')->select('sub_categorys.sub_cat_name','product_size_mat_no.product_size')->where('product_size_mat_no.mat_no',$so->Material)->first();
+
         array_push($cc_email,$plant->email);
+
+
+        $sub = 'Material dispatched against Invoice no. '.$do->invoice_no.', PO. No. '.$so->Cust_Referance;
 
         $data['po_no'] = $so->Cust_Referance;
         $data['invoice_no'] = $do->invoice_no;
         $data['do_quantity'] = $do->do_quantity;
         $data['material_grade'] = $so->Material;
+        $data['material_name'] = $subcat->sub_cat_name;
+        $data['material_size'] = $subcat->product_size;
+
         // echo "<pre>";print_r($user->email);exit();
          
          // $cam = User::where('zone',$user->zone)->where('id','!=',$user_id)->where('user_type','Kam')->get()->toArray();
@@ -391,7 +397,7 @@ class QuoteEmailController extends Controller
              
               array_push($cc_email,$value->email);
          }
-         // dd($cc_email);
+         // dd($user->email);
          (new MailService)->dotestMail($sub,$html,$user->email,$data,$cc_email);
        
         

@@ -33,7 +33,7 @@
         </tr>
         <tr>
             <td style="padding: 0 15px;">
-                <p style="font-weight: 400; font-size: 15px; line-height: 1.8; color: rgba(0,0,0,.8);">Invoice No. : ({{@$data['invoice_no']}}) with {{@$data['do_quantity']}} MT of material grade : {{@$data['material_grade']}} has been updated against your PO ({{@$data['po_no']}}). </p>
+                <p style="font-weight: 400; font-size: 15px; line-height: 1.8; color: rgba(0,0,0,.8);">Material dispatched against Invoice No. ({{@$data['invoice_no']}}) ,PO. No. : ({{@$data['po_no']}}). with Material ({{@$data['material_grade']}}), ({{@$data['material_name']}}) </p>
                 
             </td>
         </tr>

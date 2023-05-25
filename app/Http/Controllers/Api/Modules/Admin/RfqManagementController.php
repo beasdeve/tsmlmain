@@ -74,11 +74,11 @@ class RfqManagementController extends Controller
             $diff = date_diff($date1,$date2);
             $result[$key]['date_remaining'] = $diff->format("%a").' Days';
 
-            if($value->kam_status == 8)
+            if($value->kam_status == 8 || $value->quote_type == 'SM')
               {
                   $var = 'Sales Head';
               }
-              else if($value->kam_status == 7)
+              else if($value->kam_status == 7 || $value->quote_type == 'Sales')
               {
                   $var = 'Sales Planing';
               }
@@ -281,11 +281,11 @@ class RfqManagementController extends Controller
             $diff = date_diff($date1,$date2);
             $result[$key]['date_remaining'] = $diff->format("%a").' Days';
 
-            if($value->kam_status == 8)
+            if($value->kam_status == 8 || $value->quote_type == 'SM')
               {
                   $var = 'Sales Head';
               }
-              else if($value->kam_status == 7)
+              else if($value->kam_status == 7 || $value->quote_type == 'Sales')
               {
                   $var = 'Sales Planing';
               }
