@@ -34,7 +34,7 @@ class BulkController extends Controller
 
             foreach($sheetData as $val)
             {
-                if(!empty($val[18])  && !empty($val[15]))
+                if(!empty($val[18]))
                 {
 
                 $check_user = User::where('email',$val[18])->first();
