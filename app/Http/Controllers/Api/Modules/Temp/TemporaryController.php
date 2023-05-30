@@ -69,7 +69,8 @@ class TemporaryController extends Controller
     	 	$data['CustomerGroup4'] = $vals['AdditionalDataA']['CustomerGroup4'];
     	 	$data['FreightIndicator'] = $vals['AdditionalDataforPricing']['FreightIndicator'];
             $data['SpecialFrieght'] = (isset($vals['AdditionalDataforPricing']['SpecialFrieght'])) ? $vals['AdditionalDataforPricing']['SpecialFrieght'] : '';
-            $data['frieght_partner'] = $vals['AdditionalDataforPricing']['FrieghtPartner'];
+            $data['frieght_partner'] = (isset($vals['AdditionalDataforPricing']['FrieghtPartner'])) ? $vals['AdditionalDataforPricing']['FrieghtPartner'] : '';
+            
 
     	 	$data['date'] = date('Y-m-d');
 

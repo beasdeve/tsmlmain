@@ -60,6 +60,7 @@ use App\Http\Controllers\Api\Modules\Admin\AdminPasswordController;
 use App\Http\Controllers\Api\Modules\Admin\AdminLogController;
 use App\Http\Controllers\Api\Modules\Admin\RfqManagementController;
 use App\Http\Controllers\Api\Modules\Admin\LedgerController;
+use App\Http\Controllers\Api\Modules\Admin\CronSchedulerController;
 
 
 /*
@@ -108,11 +109,11 @@ Route::post('force_logout', [AuthController::class,'fologout']);
 Route::post('get_save_token',[AuthController::class,'getsavetoken']);
 Route::post('security_qstn_match', [SecurityQuestionController::class,'securityQstnMatch']);
 // -----------------------------------------------------------------------------------
-// ------------------------------------ GST ------------------------------------------------------------
+// ------------------------------------ GST ---------------------------------------------
 Route::get('gst_details_dummy',[StubbingController::class,'gstDetailsDummy']);
 Route::get('gst_details_dummy/{gstId}',[StubbingController::class,'gstDetailsDummy']);
 Route::get('gst_details_dummy_new',[StubbingController::class,'gstDetailsDummyNew']);
-// -----------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------
 
 Route::post('store-excel-data',[BulkController::class,'storExceleData']);
 Route::get('download-po-details-pdf/{id}',[PoDetailsController::class,'downloadPoPdf'])->name('download_po_details_pdf');
@@ -188,6 +189,10 @@ Route::get('so-excel-download/{contract_no?}',[SoTemporaryController::class,'SoE
   Route::get('get_all_plants',[SapSummaryController::class,'getAllPlants']);
   Route::get('get_all_city',[SapSummaryController::class,'getAllCity']);
 // -----------------------------------------------------------------------------------------
+// ------------------------- cron scheduler ---------------------------------------------
+
+  Route::get('reject_by_validtill',[CronSchedulerController::class,'rejectByValidtill']);
+// ---------------------------------------------------------------------------------------
 
 Route::group(['prefix' => 'user','middleware' => ['assign.guard:users', 'jwtmiddleware']],function ()
 {
