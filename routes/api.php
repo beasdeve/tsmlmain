@@ -93,6 +93,7 @@ Route::post('password-reset', [UserController::class,'passreset']);
 Route::get('get_user_by_id/{id}', [UserController::class,'getUserById']);
 Route::get('test', [UserController::class,'test']);
 Route::get('test_mail', [UserController::class,'testmail']);
+Route::get('test_corn', [UserController::class,'testCorn']);
 Route::post('regis_date_log',[AuthController::class,'regisdatelog']);
 Route::post('resest_pass_mail', [UserController::class,'resestpassMail']);
 
