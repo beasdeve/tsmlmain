@@ -30,7 +30,7 @@ class MailService
                 // $mail->Port = 587;                          // port - 587/465
 
 
-                $mail->SMTPDebug = 1;
+                $mail->SMTPDebug = 0;
                 $mail->isSMTP(); 
                 $mail->Host = 'mail.beas.co.in';           //  smtp host
                 $mail->SMTPAuth = true;

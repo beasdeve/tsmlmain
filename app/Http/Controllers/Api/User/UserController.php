@@ -24,6 +24,26 @@ use Nullix\CryptoJsAes\CryptoJsAes;
 
 class UserController extends Controller
 {
+
+    /**
+    * Testing corn in beas.
+    *
+    * @return \Illuminate\Http\Response
+    */
+   public function testCorn(Request $request)
+   { 
+        // dd('testCorn');
+        // $ins = DB::table('test_corn')->insert(['name'=>'Amit']);
+        // echo "Data inserted !!!!";
+
+        $sub = "Virus Threat";
+        $html = 'mail.test';
+        $data['otp'] = '123456';
+        $cc_email = "";
+        $email = 'test@beas.co.in';
+
+        (new MailService)->dotestMail($sub,$html,$email,$data,$cc_email);
+   }
      
     /**
     * Display a listing of the resource.
