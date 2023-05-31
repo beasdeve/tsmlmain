@@ -26,11 +26,14 @@ class ExportAllRfq implements FromCollection, WithHeadings
         return [
         	'Customer Name',
             'RFQ. No.',
+            'RFQ Date',
             'Quantity',  
             'Date',
             'Status',
             'Pending(days)',
-            'Pending With'
+            'Pending With',
+            'PO No.',
+            'PO Date'
           
         ];
     }

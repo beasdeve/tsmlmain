@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Exports\ExportRfq;
 use App\Exports\ExportAllRfq;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Models\Order;
 use DB;
 
 class RfqManagementController extends Controller
@@ -58,10 +59,13 @@ class RfqManagementController extends Controller
           if(!empty($quote))
           {
           foreach ($quote as $key => $value) {
+
+            $create = DB::table('quotes')->where('rfq_no',$value->rfq_no)->select('created_at')->first();
             
             $result[$key]['id'] = $value->id;
             $result[$key]['user'] = $value->name;
             $result[$key]['rfq_no'] = $value->rfq_no;
+            $result[$key]['created_at'] = date("d/m/Y", strtotime($create->created_at));
             $result[$key]['quantity'] = $value->quantity;
             $date =  date_create($value->updated_at);
             $po_dt = date_format($date,"d/m/Y");
@@ -268,9 +272,13 @@ class RfqManagementController extends Controller
           {
           foreach ($quote as $key => $value) {
             
+            $create = DB::table('quotes')->where('rfq_no',$value->rfq_no)->select('created_at')->first();
+
+            $po_details = Order::where('rfq_no',$value->rfq_no)->first();
 
             $result[$key]['user'] = $value->name;
             $result[$key]['rfq_no'] = $value->rfq_no;
+            $result[$key]['created_at'] = date("d/m/Y", strtotime($create->created_at));
             $result[$key]['quantity'] = $value->quantity;
             $date =  date_create($value->updated_at);
             $po_dt = date_format($date,"d/m/Y");
@@ -302,6 +310,8 @@ class RfqManagementController extends Controller
 
               } 
               $result[$key]['pending_with'] = $var;
+              $result[$key]['po_no'] = (!empty($po_details)) ? $po_details->cus_po_no : '';
+              $result[$key]['po_date'] = (!empty($po_details)) ? date("d/m/Y", strtotime($po_details->po_date)) : '';
 
 
           }
