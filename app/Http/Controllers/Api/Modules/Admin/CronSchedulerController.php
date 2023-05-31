@@ -13,15 +13,23 @@ class CronSchedulerController extends Controller
         
         try{
             
-            $date = Date('Y-m-d H:i:s');
+            $date = date('Y-m-d');
+            // dd($date);
 
             $data = DB::table('quote_schedules')->leftjoin('quotes','quote_schedules.quote_id','quotes.id')->select('quote_schedules.*','quotes.rfq_no')
-                 ->where('quote_schedules.quote_status','!=',1)->where('quote_schedules.valid_till','<',$date)->whereNull('quote_schedules.deleted_at')
+                 ->where('quote_schedules.quote_status','!=',1)->whereNull('quote_schedules.deleted_at')
                  ->whereNull('quotes.deleted_at')
                  ->get();
                  // dd($data);
+
                  foreach ($data as $key => $value) {
-                 	
+                    
+                    $valid = $value->valid_till;
+                    $vallid_till = date("Y-m-d", strtotime($valid));
+                    // dd($vallid_till);
+                 	if($vallid_till < $date)
+                 	 {	
+                 	   // dd($value->id);
                  	  $order = DB::table('orders')->where('rfq_no',$value->rfq_no)->get()->toArray();
                      
                  	  if(empty($order))
@@ -29,6 +37,7 @@ class CronSchedulerController extends Controller
                  	  	
                  	  	  DB::table('quote_schedules')->where('id',$value->id)->update(['quote_status' => 2]);
                  	  }
+                 	}
 
                       $arr = array();
                  	  $rfqs = DB::table('quote_schedules')->leftjoin('quotes','quote_schedules.quote_id','quotes.id')->select('quote_schedules.quote_status','quotes.rfq_no')
@@ -44,7 +53,7 @@ class CronSchedulerController extends Controller
                           }
                         // dd(count($arr));
 
-                        if(count($arr) == count($arr))
+                        if(count($rfqs) == count($arr))
                         {
                               DB::table('quotes')->where('rfq_no',$value->rfq_no)->update(['kam_status' => 2]);
                         } 
