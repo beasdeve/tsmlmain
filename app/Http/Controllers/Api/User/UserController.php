@@ -36,7 +36,7 @@ class UserController extends Controller
         // $ins = DB::table('test_corn')->insert(['name'=>'Amit']);
         // echo "Data inserted !!!!";
 
-        $sub = "Virus Threat";
+        $sub = "Test Mail";
         $html = 'mail.test';
         $data['otp'] = '123456';
         $cc_email = "";
@@ -429,7 +429,7 @@ class UserController extends Controller
 
             // $userData = $request->all();
             $userData = [];
-            $userData['name'] = "";
+            $userData['name'] = base64_decode($request->org_name);
             $userData['email'] = base64_decode($request->email);
             $userData['phone'] = base64_decode($request->phone);
             $userData['password'] = base64_decode($request->password);
