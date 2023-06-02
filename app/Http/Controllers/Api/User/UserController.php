@@ -452,7 +452,8 @@ class UserController extends Controller
             $userData['addresstwo'] = base64_decode($request->addresstwo); 
             $userData['city'] = base64_decode($request->city); 
             $userData['state'] = base64_decode($request->state); 
-            $userData['pincode'] = base64_decode($request->pincode); 
+            $userData['pincode'] = base64_decode($request->pincode);
+            $userData['zone'] = base64_decode($request->zone); 
             $userData['address_type'] = base64_decode($request->address_type);            
             $userData['pan_dt'] = base64_decode($request->pan_dt); 
             $userData['gst_dt'] = base64_decode($request->gst_dt); 
