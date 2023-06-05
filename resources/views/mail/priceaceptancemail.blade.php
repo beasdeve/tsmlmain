@@ -32,7 +32,7 @@
         </tr>
         <tr>
             <td style="padding: 0 15px;">
-                <p style="font-weight: 400; font-size: 15px; line-height: 1.8; color: rgba(0,0,0,.8);">Congratulations! Our sales team has accepted the price, volume and delivery timeline against your RFQ. Please upload your PO so that the order can be processed by our sales team.</p>
+                <p style="font-weight: 400; font-size: 15px; line-height: 1.8; color: rgba(0,0,0,.8);">Our sales team has quoted the price, volume and delivery schedule against your RFQ. Please accept the offer and upload your PO so that the order can be processed by our sales team</p>
                
             </td>
         </tr>
