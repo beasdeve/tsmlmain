@@ -26,9 +26,8 @@
             </td>
         </tr>
         <tr>
-            <td style="padding: 0 15px;">
-                <p style="font-weight: 400; font-size: 15px; color: rgba(0,0,0,.9);">Dear Madam/Sir,</p>
-                <p style="font-weight: 400; font-size: 15px; color: rgba(0,0,0,.9);">Greetings from tatasteelmining</p>
+            <td style="padding: 0 15px;"> 
+                <p style="font-weight: 400; font-size: 15px; color: rgba(0,0,0,.9);">Greetings from TSML!</p>
             </td>
         </tr>
         <tr>
