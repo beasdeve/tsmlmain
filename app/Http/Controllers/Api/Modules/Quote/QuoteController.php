@@ -14,6 +14,7 @@ use App\Models\Models\Deleteremark;
 use App\Models\Models\Plant;
 use App\Models\Models\DeliveryMethod;
 use App\Mail\Models\RfqGeneratedMail;
+use App\Http\Controllers\Api\Modules\QuoteEmail\QuoteEmailController;
 use App\Models\User;
 use Validator;
 use Auth;
@@ -800,6 +801,25 @@ class QuoteController extends Controller
 
            // $updated = QuoteSchedule::where('id',$id)->update(['quote_status' => $status]);
            $updated = DB::table('quote_schedules')->where('schedule_no',$id)->update(['quote_status' => $status]);
+
+           if($status == 2)
+           {
+               $updated = DB::table('quote_schedules')->where('schedule_no',$id)->whereNull('deleted_at')->first();
+               // dd($updated);
+               $chk_rej = DB::table('quote_schedules')->where('quote_id',$updated->quote_id)->where('quote_status','!=',2)->whereNull('deleted_at')->get()->toArray();
+               // dd($chk_rej);
+               if(empty($chk_rej))
+               {
+                    DB::table('quotes')->where('id',$updated->quote_id)->update(['kam_status' => 10]);
+                    $rfq = DB::table('quotes')->where('id',$updated->quote_id)->first();
+                    // dd($rfq);
+
+                    (new QuoteEmailController)->camHeadRejMail($rfq->rfq_no,$rfq->user_id);
+               }
+               
+
+
+           }
          }
 
 

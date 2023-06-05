@@ -27,14 +27,15 @@
         </tr>
         <tr>
             <td style="padding: 0 15px;">
-                <p style="font-weight: 400; font-size: 15px; color: rgba(0,0,0,.9);">Dear Madam/Sir,</p>
-               
+               <!--  <p style="font-weight: 400; font-size: 15px; color: rgba(0,0,0,.9);">Dear Madam/Sir,</p> -->
+                <p style="font-weight: 400; font-size: 15px; color: rgba(0,0,0,.9);">Greetings from tatasteelmining!</p>
             </td>
         </tr>
         <tr>
             <td style="padding: 0 15px;">
-                <p style="font-weight: 400; font-size: 15px; line-height: 1.8; color: rgba(0,0,0,.8);">Material dispatched against Invoice No. ({{@$data['invoice_no']}}) ,PO. No. : ({{@$data['po_no']}}). with Material ({{@$data['material_grade']}}), ({{@$data['material_name']}}). You can view and dowload the documents from the portal.</p>
-                
+                <p style="font-weight: 400; font-size: 15px; line-height: 1.8; color: rgba(0,0,0,.8);">We regret to inform that because of some unavoidable circumstances the RFQ No. ({{$data['rfq_no']}}), has been closed.You are requested to please log the order again.
+                 </p>
+               
             </td>
         </tr>
         <tr>
@@ -45,7 +46,7 @@
         </tr>
         <tr>
             <td style="padding: 0; border-top: 2px solid #f1f1f1;">
-                <p style="font-weight: 400; font-size: 15px; color: #fff; background: #09172F; text-align: center; padding: 10px 0; margin: 0;">© <?php echo date("Y"); ?> Tata Steel Mining Limited. All Rights Reserved.</p>
+                <p style="font-weight: 400; font-size: 15px; color: #fff; background: #09172F; text-align: center; padding: 10px 0; margin: 0;">© 2021 Tata Steel Mining Limited. All Rights Reserved.</p>
                 <table style="width: 100%;">
                     <tr>
                         <td>

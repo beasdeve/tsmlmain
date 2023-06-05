@@ -132,12 +132,14 @@ Route::post('sale_accpt_mail', [QuoteEmailController::class,'saleAccptMail']);
 Route::post('accepted_price_mail', [QuoteEmailController::class,'acceptedPriceMail']);
 Route::post('order_cnrfm_mail', [QuoteEmailController::class,'orderCnrfmMail']);
 Route::post('sale_head_accpt_mail', [QuoteEmailController::class,'saleHeadAccptMail']);
-Route::post('sale_head_accpt_mail', [QuoteEmailController::class,'saleHeadAccptMail']);
+// Route::post('sale_head_accpt_mail', [QuoteEmailController::class,'saleHeadAccptMail']);
 Route::post('pant_do_mail', [QuoteEmailController::class,'pantDomail']);
 Route::post('cus_scchng_mail', [QuoteEmailController::class,'cusscchngmail']);
 Route::post('cus_do_mail', [QuoteEmailController::class,'cusdogmail']);
 Route::post('plant_doexcel_mail', [QuoteEmailController::class,'plantdoexcelmail']);
 Route::post('po_edit_mail', [QuoteEmailController::class,'poEditMail']);
+Route::post('sale_head_reject_mail', [QuoteEmailController::class,'saleHeadRejMail']);
+Route::post('cam_reject_mail', [QuoteEmailController::class,'camHeadRejMail']);
 
 // ------------ sap mails------------------------------------------
 Route::post('sc_mail', [QuoteEmailController::class,'scMail']);

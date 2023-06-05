@@ -557,6 +557,71 @@ class QuoteEmailController extends Controller
 
     // ------------------------------------------------------------------------------
 
+    // --------------------  sales head reject mail --------------------------------
+    public function saleHeadRejMail(Request $request)
+    {
+         $cc_email = array();
+
+         $rfq_no = $request->input('rfq_no');
+         $user_id = $request->input('user_id');
+         
+                 
+         $user = User::where('id',$user_id)->first();
+
+         $cam = User::where('zone',$user->zone)->where('id','!=',$user_id)->where('user_type','Kam')->get()->toArray();
+
+         foreach ($cam as $key => $value) {
+             
+              array_push($cc_email,$value['email']);
+         }
+
+         $sub = 'Sales team has rejected the price offer for '.$rfq_no;
+ 
+         $html = 'mail.salesheadrejectmail';
+
+         $data = "";
+
+         // echo "<pre>";print_r($cc_email[0]);exit();
+
+         // Mail::send(new SalesacceptMail($data));
+         (new MailService)->dotestMail($sub,$html,$cc_email[0],$data,$cc_email);
+         $msg = "Mail sent successfully";
+         return response()->json(['status'=>1,'message' =>$msg],200);
+    }
+    // -----------------------------------------------------------------------------
+    // --------------------  cam reject mail --------------------------------
+    public function camHeadRejMail($rfq_no,$user_id)
+    {
+         $cc_email = array();
+
+         // $rfq_no = $request->input('rfq_no');
+         // $user_id = $request->input('user_id');
+         
+                 
+         $user = User::where('id',$user_id)->first();
+
+         $cam = User::where('zone',$user->zone)->where('id','!=',$user_id)->where('user_type','Kam')->get()->toArray();
+
+         foreach ($cam as $key => $value) {
+             
+              array_push($cc_email,$value['email']);
+         }
+
+         $sub = 'RFQ has been rejected '.$rfq_no;
+ 
+         $html = 'mail.salesheadrejectmail';
+
+         $data['rfq_no'] = $rfq_no;
+
+         echo "<pre>";print_r($cc_email[0]);exit();
+
+         // Mail::send(new SalesacceptMail($data));
+         (new MailService)->dotestMail($sub,$html,$cc_email[0],$data,$cc_email);
+         $msg = "Mail sent successfully";
+         return response()->json(['status'=>1,'message' =>$msg],200);
+    }
+    // -----------------------------------------------------------------------------
+
 
 
 }
