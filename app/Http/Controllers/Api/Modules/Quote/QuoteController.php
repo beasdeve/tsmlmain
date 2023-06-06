@@ -2472,6 +2472,20 @@ class QuoteController extends Controller
                   $poArr['letterhead'] = $name;
                 }
 
+                $chk = Storage::exists("public/images/letterheads",$name);
+
+             
+            // dd($chk);
+
+            if ($chk==false) 
+            {
+              return response()->json(['status'=>0,
+              'message' =>'error',
+              'result' => 'something went wrong File not uploaded !!'],
+              config('global.success_status'));
+            }
+            else{
+
 
             // echo "<pre>";print_r($poArr);exit();
 
@@ -2482,7 +2496,7 @@ class QuoteController extends Controller
                   'result' => 'P.O updated'],
                   config('global.success_status'));
 
-
+              }
 
 
       }catch(\Exception $e){
