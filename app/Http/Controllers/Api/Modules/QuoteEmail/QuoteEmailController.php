@@ -613,12 +613,12 @@ class QuoteEmailController extends Controller
 
          $data['rfq_no'] = $rfq_no;
 
-         echo "<pre>";print_r($cc_email[0]);exit();
+         // echo "<pre>";print_r($cc_email[0]);exit();
 
          // Mail::send(new SalesacceptMail($data));
          (new MailService)->dotestMail($sub,$html,$cc_email[0],$data,$cc_email);
-         $msg = "Mail sent successfully";
-         return response()->json(['status'=>1,'message' =>$msg],200);
+         // $msg = "Mail sent successfully";
+         // return response()->json(['status'=>1,'message' =>$msg],200);
     }
     // -----------------------------------------------------------------------------
 

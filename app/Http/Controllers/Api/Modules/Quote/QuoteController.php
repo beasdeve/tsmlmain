@@ -804,14 +804,14 @@ class QuoteController extends Controller
 
            if($status == 2)
            {
-               $updated = DB::table('quote_schedules')->where('schedule_no',$id)->whereNull('deleted_at')->first();
+               $update = DB::table('quote_schedules')->where('schedule_no',$id)->whereNull('deleted_at')->first();
                // dd($updated);
-               $chk_rej = DB::table('quote_schedules')->where('quote_id',$updated->quote_id)->where('quote_status','!=',2)->whereNull('deleted_at')->get()->toArray();
+               $chk_rej = DB::table('quote_schedules')->where('quote_id',$update->quote_id)->where('quote_status','!=',2)->whereNull('deleted_at')->get()->toArray();
                // dd($chk_rej);
                if(empty($chk_rej))
                {
-                    DB::table('quotes')->where('id',$updated->quote_id)->update(['kam_status' => 10]);
-                    $rfq = DB::table('quotes')->where('id',$updated->quote_id)->first();
+                    DB::table('quotes')->where('id',$update->quote_id)->update(['kam_status' => 10]);
+                    $rfq = DB::table('quotes')->where('id',$update->quote_id)->first();
                     // dd($rfq);
 
                     (new QuoteEmailController)->camHeadRejMail($rfq->rfq_no,$rfq->user_id);
