@@ -1610,7 +1610,7 @@ class QuoteController extends Controller
 
       public function submitPo(Request $request)
       {
-
+        // dd('ok');
          // echo "<pre>";print_r($request->all());exit();
 
        try{
@@ -1622,7 +1622,7 @@ class QuoteController extends Controller
             $poArr['rfq_no'] = $request->input('rfqNo');
             $poArr['po_no'] = $request->input('po_no');
             $poArr['amdnt_no'] = $request->input('amdnt_no');
-
+            // dd($request->file('letterhead')); 
 
             $files = $request->file('letterhead');
             if(!empty($files))
@@ -1632,6 +1632,19 @@ class QuoteController extends Controller
               $files->storeAs("public/images/letterheads",$name);
               $poArr['letterhead'] = $name;
             }
+            $chk = Storage::exists("public/images/letterheads",$name);
+
+             
+            // dd($chk);
+
+            if ($chk==false) 
+            {
+              return response()->json(['status'=>0,
+              'message' =>'error',
+              'result' => 'something went wrong File not uploaded !!'],
+              config('global.success_status'));
+            }
+            else{
 
             $date =  date_create($request->input('po_date'));
             $po_dt = date_format($date,"Y-m-d");
@@ -1646,6 +1659,9 @@ class QuoteController extends Controller
               'message' =>'success',
               'result' => 'P.O created'],
               config('global.success_status'));
+            }
+
+
 
 
 
