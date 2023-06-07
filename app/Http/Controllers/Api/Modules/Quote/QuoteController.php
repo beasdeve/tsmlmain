@@ -1623,7 +1623,8 @@ class QuoteController extends Controller
             $poArr['po_no'] = $request->input('po_no');
             $poArr['amdnt_no'] = $request->input('amdnt_no');
             // dd($request->file('letterhead')); 
-
+            sleep(10);
+            // dd('run');
             $files = $request->file('letterhead');
             if(!empty($files))
             {
@@ -1639,6 +1640,7 @@ class QuoteController extends Controller
 
             if ($chk==false) 
             {
+               
               return response()->json(['status'=>0,
               'message' =>'error',
               'result' => 'something went wrong File not uploaded !!'],
@@ -2447,7 +2449,7 @@ class QuoteController extends Controller
 
        try{
 
-
+            // dd('updateLetterhead');
 
             $poArr = array();
 
