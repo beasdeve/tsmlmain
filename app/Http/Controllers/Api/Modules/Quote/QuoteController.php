@@ -74,7 +74,7 @@ class QuoteController extends Controller
 
     }
 
-   $billto = $result[$key]['schedule'][0]['bill_to'];
+    $billto = $result[$key]['schedule'][0]['bill_to'];
     $shipto = $result[$key]['schedule'][0]['ship_to'];
     // dd($shipto);
     $userbilltoaddr = DB::table('address')->where('id',$billto)
