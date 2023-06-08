@@ -40,7 +40,7 @@ class UserController extends Controller
         $html = 'mail.test';
         $data['otp'] = '123456';
         $cc_email = "";
-        $email = 'test@beas.co.in';
+        $email = 'test@gmail.com';
 
         (new MailService)->dotestMail($sub,$html,$email,$data,$cc_email);
    }
