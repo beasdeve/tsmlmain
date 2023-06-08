@@ -43,13 +43,13 @@ class MailService
                 $mail->setFrom('developer@beas.co.in', 'TSML Team');
                 $mail->addAddress($sentTo);
                 
-                if (!empty($emailcc)) 
-                {
-                    foreach ($emailcc as $key => $value) 
-                    {                    
-                        $mail->addCC($value);
-                    }
-                } 
+                // if (!empty($emailcc)) 
+                // {
+                //     foreach ($emailcc as $key => $value) 
+                //     {                    
+                //         $mail->addCC($value);
+                //     }
+                // } 
 
                 $mail->isHTML(true);                
 
@@ -92,20 +92,20 @@ class MailService
                 $mail->Host = 'mail.beas.co.in';           //  smtp host
                 $mail->SMTPAuth = true;
                 $mail->Username = 'developer@beas.co.in';   //  sender 
-                $mail->Password = 'A#dfg@1@';       // sender password
+                $mail->Password = 'A$dfg@12345';       // sender password
                 $mail->SMTPSecure = 'STRTTLS';                  // encryption - ssl/tls
                 $mail->Port = 587;                         // port - 587/465
 
                 $mail->setFrom('developer@beas.co.in', 'TSML Team');
-                $mail->addAddress($sentTo);
+                $mail->addAddress('sourav.mondal@beas.co.in');
                 
-                if (!empty($emailcc)) 
-                {
-                    foreach ($emailcc as $key => $value) 
-                    {                    
-                        $mail->addCC($value);
-                    }
-                } 
+                // if (!empty($emailcc)) 
+                // {
+                //     foreach ($emailcc as $key => $value) 
+                //     {                    
+                //         $mail->addCC($value);
+                //     }
+                // } 
 
                 if(!empty($attachment))
                 {
