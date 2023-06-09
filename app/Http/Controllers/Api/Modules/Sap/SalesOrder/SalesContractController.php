@@ -149,7 +149,7 @@ class SalesContractController extends Controller
                    ->leftjoin('quotes','orders.rfq_no','quotes.rfq_no')
                    ->leftjoin('users','quotes.user_id','users.id')
                    ->groupBy('sc_transactions.mat_code')
-                       ->select('sc_transactions.*','plants.code as pcode','users.name','orders.po_date','orders.cus_po_no','orders.po_date','users.user_code','users.addressone','users.addresstwo','users.city','users.state','users.pincode','users.id as uid')->where('orders.po_no',$po_no)->get();
+                       ->select('sc_transactions.*','plants.code as pcode','users.name','orders.po_date','orders.cus_po_no','orders.rfq_no as rfqNo','orders.po_date','users.user_code','users.addressone','users.addresstwo','users.city','users.state','users.pincode','users.id as uid')->where('orders.po_no',$po_no)->get();
                    // echo "<pre>";print_,'orders.po_date')->where('orders.po_no',$po_no)->get();
                    // echo "<pre>";print_r($newcount);exit();
 
@@ -165,21 +165,21 @@ class SalesContractController extends Controller
                      $data[$key]['value'] = $value->value;
                      $data[$key]['mat_code'] = $value->mat_code;
                      $data[$key]['pcode'] = $value->pcode;
-                     $data[$key]['rfq_no'] = $value->rfq_no;
+                     $data[$key]['rfq_no'] = $value->rfqNo;
                      $data[$key]['cus_po_no'] = $value->cus_po_no;
                      $data[$key]['po_date'] = $value->po_date;
                      $data[$key]['user_code'] = $value->user_code;
                      $data[$key]['addressone'] = $value->addressone;
                      $data[$key]['addresstwo'] = $value->addresstwo;
-                     $data[$key]['odr_qty'] = $this->orderQty($value->mat_code,$po_no);//qty per size
+                     // $data[$key]['odr_qty'] = $this->orderQty($value->mat_code,$po_no);//qty per size
                      $data[$key]['city'] = $value->city;
                      $data[$key]['state'] = $value->state;
                      $data[$key]['pincode'] = $value->pincode;
                      $data[$key]['net_value'] = $this->scNetValue($po_no);
                      $data[$key]['qty_ct'] = $this->qty_ct($po_no);
                      $data[$key]['tot_qty'] = $this->rfqTotQty($value->rfq_no);//total rfq qty
-                     $data[$key]['price_det'] = $this->priceBreakById($value->mat_code,$value->rfq_no);
-                     $data[$key]['specs'] = $this->subcatspecs($value->mat_code);
+                     // $data[$key]['price_det'] = $this->priceBreakById($value->mat_code,$value->rfq_no);
+                     // $data[$key]['specs'] = $this->subcatspecs($value->mat_code);
                      $data[$key]['total'] = $this->totalRfqPrice($value->schedule);
 
            
