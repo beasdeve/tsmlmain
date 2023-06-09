@@ -1609,7 +1609,9 @@ class QuoteController extends Controller
     /*---------------------------- submit PO -----------------------------------------*/
       public function submitPoNew(Request $request)
       {
-         
+          ini_set('upload_max_size', '64M');
+          // ini_set('post_max_size', '64M');
+          // ini_set('max_execution_time', 300);
 
             // $poArr = array();
 
@@ -1623,13 +1625,19 @@ class QuoteController extends Controller
             
             if ($request->hasFile('letterhead'))
             {
-              $image = $request->letterhead; 
+              $file = $request->file('letterhead');
+              $filename = rand(1000,9999).'-'.$file->getClientOriginalExtension(); //create unique file name...
+              Storage::disk('public')->put($filename,File::get($file));
 
-              $filename = rand(1000,9999).'-'.$image->getClientOriginalName();
 
-              Storage::putFileAs('public/images/letterheads', $image, $filename);
 
-              $input['letterhead'] = $filename;
+              // $image = $request->letterhead; 
+
+              // $filename = rand(1000,9999).'-'.$image->getClientOriginalName();
+
+              // Storage::putFileAs('public/images/letterheads', $image, $filename);
+
+              // $input['letterhead'] = $filename;
 
               // $name = time().$files->getClientOriginalName();
               // $files->storeAs("public/images/letterheads",$name);
