@@ -230,6 +230,7 @@ Route::group(['prefix' => 'user','middleware' => ['assign.guard:users', 'jwtmidd
    		 Route::post('view_remarks',[QuoteController::class,'viewRemarks']);
    		 Route::get('get_quote_po_by_id/{id}',[QuoteController::class,'getPoQuoteById']);
    		 Route::post('submit_po',[QuoteController::class,'submitPo']);
+       Route::post('submit_po_new',[QuoteController::class,'submitPoNew']);
    		 Route::get('get_po_by_id/{id}',[QuoteController::class,'getPoById']);
    		 Route::get('get_po_all',[QuoteController::class,'getPoAll']);
    		 Route::get('get_po_all_kam',[QuoteController::class,'getPoAllKam']);

@@ -1607,7 +1607,64 @@ class QuoteController extends Controller
 
 
     /*---------------------------- submit PO -----------------------------------------*/
+      public function submitPoNew(Request $request)
+      {
+          ini_set('upload_max_size', '64M');
+          // ini_set('post_max_size', '64M');
+          // ini_set('max_execution_time', 300);
 
+            // $poArr = array();
+
+            $poArr['rfq_no'] = $request['rfqNo'];
+            $poArr['po_no'] = $request['po_no'];  
+            $poArr['amdnt_no'] = $request['amdnt_no'];  
+
+            
+            // dd($request->file('letterhead')); 
+            // sleep(10);
+            
+            if ($request->hasFile('letterhead'))
+            {
+              $file = $request->file('letterhead');
+              $filename = rand(1000,9999).'-'.$file->getClientOriginalExtension(); //create unique file name...
+              Storage::disk('public')->put($filename,File::get($file));
+
+
+
+              // $image = $request->letterhead; 
+
+              // $filename = rand(1000,9999).'-'.$image->getClientOriginalName();
+
+              // Storage::putFileAs('public/images/letterheads', $image, $filename);
+
+              // $input['letterhead'] = $filename;
+
+              // $name = time().$files->getClientOriginalName();
+              // $files->storeAs("public/images/letterheads",$name);
+              // $poArr['letterhead'] = $name;
+            }
+            // $chk = Storage::exists("public/images/letterheads",$name);
+
+             
+            // dd($chk);
+
+ 
+
+            $date =  date_create($request->input('po_date'));
+            $po_dt = date_format($date,"Y-m-d");
+            $poArr['po_date'] = $po_dt;
+            $poArr['status'] = 2;
+
+            // echo "<pre>";print_r($poArr);exit();
+
+            // Order::create($poArr);
+
+            return response()->json(['status'=>1,
+              'message' =>'success',
+              'result' => 'P.O created'],
+              config('global.success_status'));
+            
+      }
       public function submitPo(Request $request)
       {
         // dd('ok');
@@ -1615,7 +1672,7 @@ class QuoteController extends Controller
 
        try{
 
-
+             
 
             $poArr = array();
 
@@ -1623,17 +1680,24 @@ class QuoteController extends Controller
             $poArr['po_no'] = $request->input('po_no');
             $poArr['amdnt_no'] = $request->input('amdnt_no');
             // dd($request->file('letterhead')); 
-            sleep(10);
-            // dd('run');
+            // sleep(10);
+             
             $files = $request->file('letterhead');
             if(!empty($files))
             {
+              $image = $request->e_waybill_file; 
 
-              $name = time().$files->getClientOriginalName();
-              $files->storeAs("public/images/letterheads",$name);
-              $poArr['letterhead'] = $name;
+              $filename = rand(1000,9999).'-'.$image->getClientOriginalName();
+
+              Storage::putFileAs('public/images/letterheads', $image, $filename);
+
+              $input['letterhead'] = $name;
+
+              // $name = time().$files->getClientOriginalName();
+              // $files->storeAs("public/images/letterheads",$name);
+              // $poArr['letterhead'] = $name;
             }
-            $chk = Storage::exists("public/images/letterheads",$name);
+            // $chk = Storage::exists("public/images/letterheads",$name);
 
              
             // dd($chk);

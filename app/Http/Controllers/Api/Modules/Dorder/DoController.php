@@ -53,37 +53,46 @@ class DoController extends Controller
         $input['no_of_bags'] = $request->no_of_bags;
         $input['seal_no'] = $request->seal_no;
 
-        if ($request->hasFile('lr_file'))
+      if ($request->hasFile('lr_file'))
 	    {  
+        $files = $request->file('lr_file');
 
-	    	$image = $request->lr_file; 
+        $name = time().$files->getClientOriginalName();
+        
+        $files->storeAs("public/images/do/",$name);
+        
+        
+	    	// $image = $request->lr_file; 
 
-            $filename = rand(1000,9999).'-'.$image->getClientOriginalName();
-                    Storage::putFileAs('public/images/do/', $image, $filename);
+      //   $filename = rand(1000,9999).'-'.$image->getClientOriginalName();
 
-            $input['lr_file'] = $filename;
+      //   Storage::putFileAs('public/images/do/', $image, $filename);
+
+        $input['lr_file'] = $filename;
 
 	    }
 
 	    if ($request->hasFile('e_waybill_file'))
-        {  
+      {  
 
-            $image = $request->e_waybill_file; 
+          $image = $request->e_waybill_file; 
 
-            $filename = rand(1000,9999).'-'.$image->getClientOriginalName();
-                    Storage::putFileAs('public/images/do/', $image, $filename);
+          $filename = rand(1000,9999).'-'.$image->getClientOriginalName();
 
-            $input['e_waybill_file'] = $filename;
+          Storage::putFileAs('public/images/do/', $image, $filename);
 
-        }
+          $input['e_waybill_file'] = $filename;
+
+      }
 	    if ($request->hasFile('test_certificate_file'))
 	    {
 	    	$image = $request->test_certificate_file; 
 
-            $filename = rand(1000,9999).'-'.$image->getClientOriginalName();
-                    Storage::putFileAs('public/images/do/', $image, $filename);
+        $filename = rand(1000,9999).'-'.$image->getClientOriginalName();
 
-            $input['test_certificate_file'] = $filename;
+        Storage::putFileAs('public/images/do/', $image, $filename);
+
+        $input['test_certificate_file'] = $filename;
 
 	    	 
 	    }
@@ -91,23 +100,25 @@ class DoController extends Controller
 	    {
 	    	$image = $request->e_invoice_file; 
 
-            $filename = rand(1000,9999).'-'.$image->getClientOriginalName();
-                    Storage::putFileAs('public/images/do/', $image, $filename);
+        $filename = rand(1000,9999).'-'.$image->getClientOriginalName();
 
-            $input['e_invoice_file'] = $filename; 
+        Storage::putFileAs('public/images/do/', $image, $filename);
+
+        $input['e_invoice_file'] = $filename; 
 	    	 
 	    }
 
-        if ($request->hasFile('misc_doc_file'))
-        {
-            $image = $request->misc_doc_file; 
+      if ($request->hasFile('misc_doc_file'))
+      {
+          $image = $request->misc_doc_file; 
 
-            $filename = rand(1000,9999).'-'.$image->getClientOriginalName();
-                    Storage::putFileAs('public/images/do/', $image, $filename);
+          $filename = rand(1000,9999).'-'.$image->getClientOriginalName();
+          
+          Storage::putFileAs('public/images/do/', $image, $filename);
 
-            $input['misc_doc_file'] = $filename; 
-             
-        }
+          $input['misc_doc_file'] = $filename; 
+           
+      }
 
 	    // dd($input);
 
