@@ -1626,7 +1626,10 @@ class QuoteController extends Controller
             if ($request->hasFile('letterhead'))
             {
               $file = $request->file('letterhead');
-              $filename = rand(1000,9999).'-'.$image->getClientOriginalName(); //create unique file name...
+              $filename = rand(1000,9999).'-'.$file->getClientOriginalName();
+
+ 
+               //create unique file name...
               Storage::disk('public')->put($filename,File::get($file));
 
 
