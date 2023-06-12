@@ -1625,22 +1625,22 @@ class QuoteController extends Controller
             
             if ($request->hasFile('letterhead'))
             {
-              $file = $request->file('letterhead');
-              $filename = rand(1000,9999).'-'.$file->getClientOriginalName();
+              // $file = $request->file('letterhead');
+              // $filename = rand(1000,9999).'-'.$file->getClientOriginalName();
 
  
-               //create unique file name...
-              Storage::disk('public')->put($filename,File::get($file));
+              //  //create unique file name...
+              // Storage::disk('public')->put($filename,File::get($file));
 
 
 
-              // $image = $request->letterhead; 
+              $image = $request->letterhead; 
 
-              // $filename = rand(1000,9999).'-'.$image->getClientOriginalName();
+              $filename = rand(1000,9999).'-'.$image->getClientOriginalName();
 
-              // Storage::putFileAs('public/images/letterheads', $image, $filename);
+              Storage::putFileAs('public/images/letterheadsNew', $image, $filename);
 
-              // $input['letterhead'] = $filename;
+              $input['letterhead'] = $filename;
 
               // $name = time().$files->getClientOriginalName();
               // $files->storeAs("public/images/letterheads",$name);
@@ -1685,22 +1685,23 @@ class QuoteController extends Controller
             // dd($request->file('letterhead')); 
             // sleep(10);
              
-            $files = $request->file('letterhead');
-            if(!empty($files))
+            $chk = true;
+
+            if(!empty($request->file('letterhead')))
             {
-              $image = $request->e_waybill_file; 
+              $image = $request->file('letterhead'); 
 
               $filename = rand(1000,9999).'-'.$image->getClientOriginalName();
 
               Storage::putFileAs('public/images/letterheads', $image, $filename);
 
-              $input['letterhead'] = $name;
-
+              $input['letterhead'] = $filename;
+              $chk = Storage::exists("public/images/letterheads",$filename);
               // $name = time().$files->getClientOriginalName();
               // $files->storeAs("public/images/letterheads",$name);
               // $poArr['letterhead'] = $name;
             }
-            // $chk = Storage::exists("public/images/letterheads",$name);
+            
 
              
             // dd($chk);
