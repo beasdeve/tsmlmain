@@ -27,14 +27,15 @@
         </tr>
         <tr>
             <td style="padding: 0 15px;">
+               <!--  <p style="font-weight: 400; font-size: 15px; color: rgba(0,0,0,.9);">Dear Madam/Sir,</p> -->
                 <p style="font-weight: 400; font-size: 15px; color: rgba(0,0,0,.9);">Greetings from TSML!</p>
-                
             </td>
         </tr>
         <tr>
             <td style="padding: 0 15px;">
-                <p style="font-weight: 400; font-size: 15px; line-height: 1.8; color: rgba(0,0,0,.8);">Your Sales Contarct, {{@$data['sc_no']}} is genrated against PO No. : {{@$data['po_no']}}. </p>
-                
+                <p style="font-weight: 400; font-size: 15px; line-height: 1.8; color: rgba(0,0,0,.8);">Your Sales Head has rejected the price offer. Request to go through the offer and re send the price offer.
+                 </p>
+               
             </td>
         </tr>
         <tr>
@@ -45,7 +46,7 @@
         </tr>
         <tr>
             <td style="padding: 0; border-top: 2px solid #f1f1f1;">
-                <p style="font-weight: 400; font-size: 15px; color: #fff; background: #09172F; text-align: center; padding: 10px 0; margin: 0;"> © <?php echo date("Y"); ?> Tata Steel Mining Limited. All Rights Reserved.</p>
+                <p style="font-weight: 400; font-size: 15px; color: #fff; background: #09172F; text-align: center; padding: 10px 0; margin: 0;">© 2021 Tata Steel Mining Limited. All Rights Reserved.</p>
                 <table style="width: 100%;">
                     <tr>
                         <td>

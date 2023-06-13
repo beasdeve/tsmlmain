@@ -36,11 +36,11 @@ class UserController extends Controller
         // $ins = DB::table('test_corn')->insert(['name'=>'Amit']);
         // echo "Data inserted !!!!";
 
-        $sub = "Virus Threat";
+        $sub = "Test Mail";
         $html = 'mail.test';
         $data['otp'] = '123456';
         $cc_email = "";
-        $email = 'test@beas.co.in';
+        $email = 'test@gmail.com';
 
         (new MailService)->dotestMail($sub,$html,$email,$data,$cc_email);
    }
@@ -429,7 +429,7 @@ class UserController extends Controller
 
             // $userData = $request->all();
             $userData = [];
-            $userData['name'] = "";
+            $userData['name'] = base64_decode($request->org_name);
             $userData['email'] = base64_decode($request->email);
             $userData['phone'] = base64_decode($request->phone);
             $userData['password'] = base64_decode($request->password);
@@ -452,12 +452,15 @@ class UserController extends Controller
             $userData['addresstwo'] = base64_decode($request->addresstwo); 
             $userData['city'] = base64_decode($request->city); 
             $userData['state'] = base64_decode($request->state); 
-            $userData['pincode'] = base64_decode($request->pincode); 
+            $userData['pincode'] = base64_decode($request->pincode);
+            $userData['zone'] = base64_decode($request->zone); 
             $userData['address_type'] = base64_decode($request->address_type);            
             $userData['pan_dt'] = base64_decode($request->pan_dt); 
             $userData['gst_dt'] = base64_decode($request->gst_dt); 
             $userData['formD_dt'] = base64_decode($request->formD_dt); 
             $userData['tcs_dt'] = base64_decode($request->tcs_dt);
+            $userData['reg_by'] = 'P';
+           
 
             if ($request->hasFile('address_proof_file'))
             {

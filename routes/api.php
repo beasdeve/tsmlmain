@@ -133,12 +133,14 @@ Route::post('sale_accpt_mail', [QuoteEmailController::class,'saleAccptMail']);
 Route::post('accepted_price_mail', [QuoteEmailController::class,'acceptedPriceMail']);
 Route::post('order_cnrfm_mail', [QuoteEmailController::class,'orderCnrfmMail']);
 Route::post('sale_head_accpt_mail', [QuoteEmailController::class,'saleHeadAccptMail']);
-Route::post('sale_head_accpt_mail', [QuoteEmailController::class,'saleHeadAccptMail']);
+// Route::post('sale_head_accpt_mail', [QuoteEmailController::class,'saleHeadAccptMail']);
 Route::post('pant_do_mail', [QuoteEmailController::class,'pantDomail']);
 Route::post('cus_scchng_mail', [QuoteEmailController::class,'cusscchngmail']);
 Route::post('cus_do_mail', [QuoteEmailController::class,'cusdogmail']);
 Route::post('plant_doexcel_mail', [QuoteEmailController::class,'plantdoexcelmail']);
 Route::post('po_edit_mail', [QuoteEmailController::class,'poEditMail']);
+Route::post('sale_head_reject_mail', [QuoteEmailController::class,'saleHeadRejMail']);
+Route::post('cam_reject_mail', [QuoteEmailController::class,'camHeadRejMail']);
 
 // ------------ sap mails------------------------------------------
 Route::post('sc_mail', [QuoteEmailController::class,'scMail']);
@@ -231,6 +233,7 @@ Route::group(['prefix' => 'user','middleware' => ['assign.guard:users', 'jwtmidd
    		 Route::post('view_remarks',[QuoteController::class,'viewRemarks']);
    		 Route::get('get_quote_po_by_id/{id}',[QuoteController::class,'getPoQuoteById']);
    		 Route::post('submit_po',[QuoteController::class,'submitPo']);
+       Route::post('submit_po_new',[QuoteController::class,'submitPoNew']);
    		 Route::get('get_po_by_id/{id}',[QuoteController::class,'getPoById']);
    		 Route::get('get_po_all',[QuoteController::class,'getPoAll']);
    		 Route::get('get_po_all_kam',[QuoteController::class,'getPoAllKam']);
@@ -644,6 +647,10 @@ Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admins','jwtmid
       Route::get('unblock-user-admin/{user_id}',[AdminUserManageController::class,'unBlockUserAdmin'])->name('unblock_user_admin');
       Route::get('admin-customer-list',[AdminUserManageController::class,'customerListAdmin'])->name('admin_castomer_list');
       Route::post('admin-customer-details',[AdminUserManageController::class,'customerDetailsAdmin'])->name('admin_castomer_details');
+      //------------------Portal Register Customer-----------------------
+        Route::get('admin-portal-customer-list',[AdminUserManageController::class,'portalCustListAdmin'])->name('admin_portal_castomer_list');
+        Route::post('admin-up-cust-sap-code',[AdminUserManageController::class,'adminUpCustSapCode'])->name('admin_up-_cust_sap_code');
+      //---------------End fo Portal Register Customer---------------------
       // --------------  End of Admin User Magement ----------------------------------//
 
       // ---------------------- Order management ---------------------------------------

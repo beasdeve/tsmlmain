@@ -55,7 +55,7 @@ class CronSchedulerController extends Controller
 
                         if(count($rfqs) == count($arr))
                         {
-                              DB::table('quotes')->where('rfq_no',$value->rfq_no)->update(['kam_status' => 2]);
+                              DB::table('quotes')->where('rfq_no',$value->rfq_no)->update(['kam_status' => 10]);
                         } 
                           
                  }

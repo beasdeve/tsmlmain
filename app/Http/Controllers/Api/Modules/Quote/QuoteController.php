@@ -14,6 +14,7 @@ use App\Models\Models\Deleteremark;
 use App\Models\Models\Plant;
 use App\Models\Models\DeliveryMethod;
 use App\Mail\Models\RfqGeneratedMail;
+use App\Http\Controllers\Api\Modules\QuoteEmail\QuoteEmailController;
 use App\Models\User;
 use Validator;
 use Auth;
@@ -73,7 +74,7 @@ class QuoteController extends Controller
 
     }
 
-   $billto = $result[$key]['schedule'][0]['bill_to'];
+    $billto = $result[$key]['schedule'][0]['bill_to'];
     $shipto = $result[$key]['schedule'][0]['ship_to'];
     // dd($shipto);
     $userbilltoaddr = DB::table('address')->where('id',$billto)
@@ -800,6 +801,25 @@ class QuoteController extends Controller
 
            // $updated = QuoteSchedule::where('id',$id)->update(['quote_status' => $status]);
            $updated = DB::table('quote_schedules')->where('schedule_no',$id)->update(['quote_status' => $status]);
+
+           if($status == 2)
+           {
+               $update = DB::table('quote_schedules')->where('schedule_no',$id)->whereNull('deleted_at')->first();
+               // dd($updated);
+               $chk_rej = DB::table('quote_schedules')->where('quote_id',$update->quote_id)->where('quote_status','!=',2)->whereNull('deleted_at')->get()->toArray();
+               // dd($chk_rej);
+               if(empty($chk_rej))
+               {
+                    DB::table('quotes')->where('id',$update->quote_id)->update(['kam_status' => 10]);
+                    $rfq = DB::table('quotes')->where('id',$update->quote_id)->first();
+                    // dd($rfq);
+
+                    (new QuoteEmailController)->camHeadRejMail($rfq->rfq_no,$rfq->user_id);
+               }
+               
+
+
+           }
          }
 
 
@@ -1587,31 +1607,117 @@ class QuoteController extends Controller
 
 
     /*---------------------------- submit PO -----------------------------------------*/
+      public function submitPoNew(Request $request)
+      {  
+           $b =  $request->letterhead->getSize();
+          $a = ini_get('upload_max_filesize');
+          $c = $b/1048576;
+          dd('uploaded  '.$c.' M','upload_max_filesize '.$a);
+          // ini_set('post_max_size', '64M');
+          // ini_set('max_execution_time', 300);
 
+            // $poArr = array();
+
+            $poArr['rfq_no'] = $request['rfqNo'];
+            $poArr['po_no'] = $request['po_no'];  
+            $poArr['amdnt_no'] = $request['amdnt_no'];  
+
+            
+            // dd($request->file('letterhead')); 
+            // sleep(10);
+            
+            if ($request->hasFile('letterhead'))
+            {
+              // $files = $request->file('letterhead');
+              // $filename = rand(1000,9999).'-'.$file->getClientOriginalName();
+
+ 
+              //  //create unique file name...
+              // Storage::disk('public')->put($filename,File::get($file));
+
+
+
+              $image = $request->letterhead; 
+
+              $filename = rand(1000,9999).'-'.$image->getClientOriginalName();
+
+              Storage::putFileAs('public/images/letterheadsNew', $image, $filename);
+
+              $input['letterhead'] = $filename;
+
+              // $name = time().$files->getClientOriginalName();
+              // $files->storeAs("public/images/letterheadsNew",$name);
+              // $poArr['letterhead'] = $name;
+            }
+            // $chk = Storage::exists("public/images/letterheads",$name);
+
+             
+            // dd($chk);
+
+ 
+
+            $date =  date_create($request->input('po_date'));
+            $po_dt = date_format($date,"Y-m-d");
+            $poArr['po_date'] = $po_dt;
+            $poArr['status'] = 2;
+
+            // echo "<pre>";print_r($poArr);exit();
+
+            // Order::create($poArr);
+
+            return response()->json(['status'=>1,
+              'message' =>'success',
+              'result' => 'P.O created'],
+              config('global.success_status'));
+            
+      }
       public function submitPo(Request $request)
       {
-
+        // dd('ok');
          // echo "<pre>";print_r($request->all());exit();
 
        try{
 
-
+             
 
             $poArr = array();
 
             $poArr['rfq_no'] = $request->input('rfqNo');
             $poArr['po_no'] = $request->input('po_no');
             $poArr['amdnt_no'] = $request->input('amdnt_no');
+            // dd($request->file('letterhead')); 
+            // sleep(10);
+             
+            $chk = true;
 
-
-            $files = $request->file('letterhead');
-            if(!empty($files))
+            if(!empty($request->file('letterhead')))
             {
+              $image = $request->file('letterhead'); 
 
-              $name = time().$files->getClientOriginalName();
-              $files->storeAs("public/images/letterheads",$name);
-              $poArr['letterhead'] = $name;
+              $filename = rand(1000,9999).'-'.$image->getClientOriginalName();
+
+              Storage::putFileAs('public/images/letterheads', $image, $filename);
+
+              $poArr['letterhead'] = $filename;
+              $chk = Storage::exists("public/images/letterheads",$filename);
+              // $name = time().$files->getClientOriginalName();
+              // $files->storeAs("public/images/letterheads",$name);
+              // $poArr['letterhead'] = $name;
             }
+            
+
+             
+            // dd($chk);
+
+            if ($chk==false) 
+            {
+               
+              return response()->json(['status'=>0,
+              'message' =>'error',
+              'result' => 'something went wrong File not uploaded !!'],
+              config('global.success_status'));
+            }
+            else{
 
             $date =  date_create($request->input('po_date'));
             $po_dt = date_format($date,"Y-m-d");
@@ -1626,6 +1732,9 @@ class QuoteController extends Controller
               'message' =>'success',
               'result' => 'P.O created'],
               config('global.success_status'));
+            }
+
+
 
 
 
@@ -2411,7 +2520,7 @@ class QuoteController extends Controller
 
        try{
 
-
+            // dd('updateLetterhead');
 
             $poArr = array();
 
@@ -2436,6 +2545,20 @@ class QuoteController extends Controller
                   $poArr['letterhead'] = $name;
                 }
 
+                $chk = Storage::exists("public/images/letterheads",$name);
+
+             
+            // dd($chk);
+
+            if ($chk==false) 
+            {
+              return response()->json(['status'=>0,
+              'message' =>'error',
+              'result' => 'something went wrong File not uploaded !!'],
+              config('global.success_status'));
+            }
+            else{
+
 
             // echo "<pre>";print_r($poArr);exit();
 
@@ -2446,7 +2569,7 @@ class QuoteController extends Controller
                   'result' => 'P.O updated'],
                   config('global.success_status'));
 
-
+              }
 
 
       }catch(\Exception $e){

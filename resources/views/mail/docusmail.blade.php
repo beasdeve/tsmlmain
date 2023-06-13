@@ -27,13 +27,13 @@
         </tr>
         <tr>
             <td style="padding: 0 15px;">
-                <p style="font-weight: 400; font-size: 15px; color: rgba(0,0,0,.9);">Dear Madam/Sir,</p>
+                <p style="font-weight: 400; font-size: 15px; color: rgba(0,0,0,.9);">Greetings from TSML!</p>
                
             </td>
         </tr>
         <tr>
             <td style="padding: 0 15px;">
-                <p style="font-weight: 400; font-size: 15px; line-height: 1.8; color: rgba(0,0,0,.8);">Material dispatched against Invoice No. ({{@$data['invoice_no']}}) ,PO. No. : ({{@$data['po_no']}}). with Material ({{@$data['material_grade']}}), ({{@$data['material_name']}}) </p>
+                <p style="font-weight: 400; font-size: 15px; line-height: 1.8; color: rgba(0,0,0,.8);">Material dispatched against Invoice No. ({{@$data['invoice_no']}}) ,PO. No. : ({{@$data['po_no']}}). with Material ({{@$data['material_grade']}}), ({{@$data['material_name']}}). You can view and dowload the documents from the portal.</p>
                 
             </td>
         </tr>

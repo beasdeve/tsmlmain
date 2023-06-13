@@ -45,7 +45,8 @@ class SapSummaryController extends Controller
                   $do_sum += $value->do_quantity;
               }
           }
-          
+              if(!empty($res))
+              {
                 
                 $arr['sc_no'] = $res->sc_no;
                 $arr['so_no'] = $res->ordr_no;
@@ -55,6 +56,11 @@ class SapSummaryController extends Controller
                 $arr['do_sum'] = $do_sum;
                 $arr['balance'] = $res->QtyContractTSML - $do_sum;
                 $arr['do_no'] = $this->getDoNoByPo($res->ordr_no);
+              }else{
+               
+                 $arr = [];
+
+              }
 
 
 		         \DB::commit();

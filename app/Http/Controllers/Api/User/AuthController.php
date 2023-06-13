@@ -125,7 +125,13 @@ class AuthController extends Controller
             else{ 
                    $chkuserd = User::where('email',$decrypted['email'])->first();
                    // dd('oknew');
-                   if ($chkuserd->user_status == 3) {
+                   if ($chkuserd->user_code == "" || $chkuserd->user_code == NULL) {
+                     // $userdata['login_attempt'] = $chkuserd->login_attempt;
+                    // dd('ji');
+                    return response()->json([
+                    'success' => false,'message' => 'Customer ID not found, please contact admin.']);
+                   }
+                   else if ($chkuserd->user_status == 3) {
                      // $userdata['login_attempt'] = $chkuserd->login_attempt;
                     // dd('ji');
                     return response()->json([

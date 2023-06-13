@@ -34,12 +34,12 @@ class BulkController extends Controller
 
             foreach($sheetData as $val)
             {
-                if(!empty($val[18]))
+                if(!empty($val[18]) && (!empty($val[15]) || !empty($val[64])))
                 {
 
                 $check_user = User::where('email',$val[18])->first();
                 $check_codet = Address::where('cus_code',$val[1])->first();
-                // dd($check_user->user_code);
+                // dd($val[64]);
 
                 if(empty($check_user))
                 {                    
@@ -53,7 +53,7 @@ class BulkController extends Controller
                 $user->user_code = trim($val[1]); 
                 $user->name = strtoupper(trim($val[3]));
                 $user->email = $val[18];
-                $user->phone = $val[15];
+                $user->phone = (!empty($val[15])) ? $val[15] : $val[64];
                 $user->gstin = $val[126];
                 $user->org_pan = $val[203];
                 $user->password = $password;

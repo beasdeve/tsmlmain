@@ -26,14 +26,13 @@
             </td>
         </tr>
         <tr>
-            <td style="padding: 0 15px;">
-                <p style="font-weight: 400; font-size: 15px; color: rgba(0,0,0,.9);">Dear Madam/Sir,</p>
-                <p style="font-weight: 400; font-size: 15px; color: rgba(0,0,0,.9);">Greetings from tatasteelmining</p>
+            <td style="padding: 0 15px;"> 
+                <p style="font-weight: 400; font-size: 15px; color: rgba(0,0,0,.9);">Greetings from TSML!</p>
             </td>
         </tr>
         <tr>
             <td style="padding: 0 15px;">
-                <p style="font-weight: 400; font-size: 15px; line-height: 1.8; color: rgba(0,0,0,.8);">Your RFQ has been raised successfully. Our Sales Team will be reverting to your RFQ within 48 hours. We will notify you about any update in your order status through your registered email id. You may also check the order status </p>
+                <p style="font-weight: 400; font-size: 15px; line-height: 1.8; color: rgba(0,0,0,.8);">Your RFQ has been raised successfully. Our Sales Team will be reverting to your RFQ shortly. We will notify you about any update in your order status on your registered email id. You may also check the order status on the portal</p>
                
             </td>
         </tr>
