@@ -405,4 +405,88 @@ class AdminUserManageController extends Controller
           }
 
     }
+
+    /**
+     * This is for list of portal register customer. 
+     * @param  \App\Product  $product
+     * @return \Illuminate\Http\Response
+    */
+    public function portalCustListAdmin(Request $request)
+    {
+        $response = [];
+        try{         
+          
+          if($request->cust_name)
+          {      
+             
+              $data = User::orderBy('id','desc')
+                              ->where('name','LIKE',"%{$request->cust_name}%") 
+                              ->where('user_type','=','C')
+                              ->where('reg_by','=','P') 
+                              ->get();
+          }
+           
+          else{
+              // $data = DB::table('users')
+              //             ->leftjoin('address','users.id','address.user_id')                           
+              //             ->select('users.id as user_id','users.id as user_id''address.*')
+              //             ->get();
+              $data = User::orderBy('id','desc')
+                            ->where('user_type','=','C')
+                            ->where('reg_by','=','P') 
+                            ->get();
+          }
+
+          // dd($data);
+          
+          $catelist = [];
+            foreach ($data as $key => $value) 
+            {               
+              $catdata['user_id'] = $value->id;
+              $catdata['user_code'] = $value->user_code;
+              $catdata['email'] = $value->email;
+              $catdata['name'] = $value->name;
+              $catdata['user_code'] = $value->user_code;
+              $catelist[] = $catdata;
+            } 
+          return response()->json(['status'=>1,'message' =>'success.','result' => $catelist],200);
+          
+        
+        }catch(\Exception $e){
+            $response['error'] = $e->getMessage();
+            return response()->json([$response]);
+        }
+    }
+
+    /**
+     * This is for list of portal register customer. 
+     * @param  \App\Product  $product
+     * @return \Illuminate\Http\Response
+    */
+    public function adminUpCustSapCode(Request $request)
+    {
+      // dd('adminUpCustSapCode');
+      try{         
+            $getuser = User::where('id',$request->user_id)->first();
+            if(!empty($getuser))
+            { 
+              $input['user_code'] = $request->cust_sap_code;  
+
+              $updateuser = User::where('id',$getuser->id)->update($input);
+
+     
+              return response()->json(['status'=>1,'message' =>'Customer SAP code updated successfully.']);
+               
+            }
+            else
+            {
+              return response()->json(['status'=>0,'message'=>'No data found'],200);
+            } 
+             
+          }catch(\Exception $e){
+            $response['error'] = $e->getMessage();
+            return response()->json([$response]);
+          }
+
+    }
 }
