@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Modules\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Models\Adminnotification;
+use DB;
 
 class AdminNotificationController extends Controller
 {
@@ -12,15 +13,24 @@ class AdminNotificationController extends Controller
     {
     	try{ 
            
-         	
+         	$arr = array();
 			$notification = Adminnotification::all();
 
          	// echo "<pre>";print_r($notification);exit();
+         	if(!empty($notification))
+         	{
+         	foreach ($notification as $key => $value) {
+         		
+         		  $arr[$key]['id'] = $value->id;
+         		  $arr[$key]['description'] = $value->description;
+         		  $arr[$key]['date'] = date("d-m-Y", strtotime($value->created_at));
+         	}
+         }
 	    	 
 	        return response()->json([
 		        'status'=>1,
 		        'message' =>'success',
-		        'result' => $notification
+		        'result' => $arr
 	        ],
 	        config('global.success_status'));
 
@@ -38,7 +48,8 @@ class AdminNotificationController extends Controller
     	try{ 
            
          	
-			$notification = Adminnotification::delete();
+			// $notification = Adminnotification::delete();
+			DB::table('adminnotifications')->delete();;
             \DB::commit();
          	// echo "<pre>";print_r($notification);exit();
 	    	 
