@@ -23,7 +23,8 @@ class PoOptController extends Controller
 
 			$order_results = DB::table('orders')
 	        ->where('orders.cus_po_no','!=',"")
-	        ->select('id','rfq_no','po_no','cus_po_no')
+	        ->where('orders.status','!=',8)
+	        ->select('id','rfq_no','po_no','cus_po_no','status')
 	        ->get();
 	        $order_sc_excel_datas_results = [];
          	foreach ($order_results as $key => $order_result) {
@@ -43,6 +44,7 @@ class PoOptController extends Controller
 		        	"rfq_no" => $order_result->rfq_no,
 		        	"po_no" => $order_result->po_no,
 		        	"cus_po_no" => $order_result->cus_po_no,
+		        	"status" => $order_result->status,
 		        	"QtyContractTSML" => ($sc_excel_datas_results)?$sc_excel_datas_results->QtyContractTSML:"0",
 		        	"total_do_qt" => number_format((float)$total_do_qt, 2, '.', ''),
 		        );
