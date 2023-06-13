@@ -79,7 +79,7 @@ class AdminUserManageController extends Controller
               $data = User::orderBy('id','desc')
                               ->where('name','LIKE',"%{$request->cust_name}%") 
                               ->where('user_type','=','C') 
-                              ->where('reg_by','=','P') 
+                              ->where('reg_by','=','U') 
                               ->get();
           }
            
@@ -90,7 +90,7 @@ class AdminUserManageController extends Controller
               //             ->get();
               $data = User::orderBy('id','desc')
                           ->where('user_type','=','C')
-                          ->where('reg_by','=','P') 
+                          ->where('reg_by','=','U') 
                           ->get();
           }
           
