@@ -125,7 +125,7 @@ class AuthController extends Controller
             else{ 
                    $chkuserd = User::where('email',$decrypted['email'])->first();
                    // dd('oknew');
-                   if ($chkuserd->user_code == "" || $chkuserd->user_code == NULL) {
+                   if (($chkuserd->user_code == "" || $chkuserd->user_code == NULL) && $chkuserd->user_type == 'C') {
                      // $userdata['login_attempt'] = $chkuserd->login_attempt;
                     // dd('ji');
                     return response()->json([

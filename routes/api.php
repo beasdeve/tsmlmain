@@ -61,7 +61,9 @@ use App\Http\Controllers\Api\Modules\Admin\AdminLogController;
 use App\Http\Controllers\Api\Modules\Admin\RfqManagementController;
 use App\Http\Controllers\Api\Modules\Admin\LedgerController;
 use App\Http\Controllers\Api\Modules\Admin\CronSchedulerController;
+use App\Http\Controllers\Api\Modules\Admin\AdminNotificationController;
 
+use App\Http\Controllers\Api\Modules\PoOptController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,7 +77,7 @@ use App\Http\Controllers\Api\Modules\Admin\CronSchedulerController;
 */
 // Route::post('login', [UserController::class, 'login']);
  
-// chk12
+// chk123
  
  
 // ----------------------------------- register -----------------------------------------
@@ -199,6 +201,8 @@ Route::get('so-excel-download/{contract_no?}',[SoTemporaryController::class,'SoE
 
 Route::group(['prefix' => 'user','middleware' => ['assign.guard:users', 'jwtmiddleware']],function ()
 {
+   Route::get('get_all_po_opt',[PoOptController::class,'getAllPoOpt']);
+
          Route::post('user-dashboard', [DashboardController::class,'userDashboard'])->name('user_dashboard');
 
 	    Route::post('logout', [AuthController::class,'logout']);
@@ -667,6 +671,10 @@ Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admins','jwtmid
     Route::post('store_security_question', [SecurityQuestionController::class,'StoreSecurityQue']);
       
     Route::post('update_questions_admin', [SecurityQuestionController::class,'updateSecurityQue']);
+
+    // ------------------------------- admin notifcation ----------------------------------------
+     Route::get('get_all_notifcation',[AdminNotificationController::class,'getAllNotifcation']);
+    // ------------------------------------------------------------------------------------------
 
 });
 
