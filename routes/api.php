@@ -61,6 +61,7 @@ use App\Http\Controllers\Api\Modules\Admin\AdminLogController;
 use App\Http\Controllers\Api\Modules\Admin\RfqManagementController;
 use App\Http\Controllers\Api\Modules\Admin\LedgerController;
 use App\Http\Controllers\Api\Modules\Admin\CronSchedulerController;
+use App\Http\Controllers\Api\Modules\Admin\AdminNotificationController;
 
 use App\Http\Controllers\Api\Modules\PoOptController;
 
@@ -670,6 +671,10 @@ Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admins','jwtmid
     Route::post('store_security_question', [SecurityQuestionController::class,'StoreSecurityQue']);
       
     Route::post('update_questions_admin', [SecurityQuestionController::class,'updateSecurityQue']);
+
+    // ------------------------------- admin notifcation ----------------------------------------
+     Route::get('get_all_notifcation',[AdminNotificationController::class,'getAllNotifcation']);
+    // ------------------------------------------------------------------------------------------
 
 });
 

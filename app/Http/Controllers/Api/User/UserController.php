@@ -9,9 +9,11 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Models\Models\OtpVerification;
 use App\Mail\Register;
 use App\Models\User;
+use App\Models\Admin;
 use App\Jobs\UserCreated;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Models\RegistrationLog;
+use App\Models\Models\Adminnotification;
 use App\ServicesMy\MailService;
 use App\Models\Address;
 use JWTAuth;
@@ -460,7 +462,7 @@ class UserController extends Controller
             $userData['formD_dt'] = base64_decode($request->formD_dt); 
             $userData['tcs_dt'] = base64_decode($request->tcs_dt);
             $userData['reg_by'] = 'P';
-           
+
 
             if ($request->hasFile('address_proof_file'))
             {
@@ -625,6 +627,24 @@ class UserController extends Controller
             //  ];
 
             // Mail::send(new Register($data));
+           $arr['sender'] = $user_id;
+           $arr['description'] = "New Customer : ".base64_decode($request->org_name)."registered successfully thorugh portal";
+         Adminnotification::create($arr);
+
+        $admins = Admin::get();
+        $cc_email =  array();
+
+        foreach ($admins as $key => $value) {
+             
+             array_push($cc_email,$value->email);
+        }
+        $sub = "User Registration Mail";
+        $html = 'mail.userregistermailadmin';
+        $data['user'] = base64_decode($request->org_name);
+        
+        $email = $cc_email[0];
+
+        (new MailService)->dotestMail($sub,$html,$email,$data,$cc_email);
 
             $response['success']['message']="User Created";
             return Response::json($response);

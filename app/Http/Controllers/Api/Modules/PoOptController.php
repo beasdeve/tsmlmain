@@ -23,7 +23,7 @@ class PoOptController extends Controller
 
 			$order_results = DB::table('orders')
 	        ->where('orders.cus_po_no','!=',"")
-	        ->where('orders.status','!=',8)
+	        // ->where('orders.status','!=',8)
 	        ->select('id','rfq_no','po_no','cus_po_no','status')
 	        ->get();
 	        $order_sc_excel_datas_results = [];
