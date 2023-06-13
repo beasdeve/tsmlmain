@@ -1608,8 +1608,11 @@ class QuoteController extends Controller
 
     /*---------------------------- submit PO -----------------------------------------*/
       public function submitPoNew(Request $request)
-      {
-          ini_set('upload_max_size', '64M');
+      {  
+           $b =  $request->letterhead->getSize();
+          $a = ini_get('upload_max_filesize');
+          $c = $b/1048576;
+          dd('uploaded  '.$c.' M','upload_max_filesize '.$a);
           // ini_set('post_max_size', '64M');
           // ini_set('max_execution_time', 300);
 
@@ -1625,7 +1628,7 @@ class QuoteController extends Controller
             
             if ($request->hasFile('letterhead'))
             {
-              // $file = $request->file('letterhead');
+              // $files = $request->file('letterhead');
               // $filename = rand(1000,9999).'-'.$file->getClientOriginalName();
 
  
@@ -1643,7 +1646,7 @@ class QuoteController extends Controller
               $input['letterhead'] = $filename;
 
               // $name = time().$files->getClientOriginalName();
-              // $files->storeAs("public/images/letterheads",$name);
+              // $files->storeAs("public/images/letterheadsNew",$name);
               // $poArr['letterhead'] = $name;
             }
             // $chk = Storage::exists("public/images/letterheads",$name);
@@ -1695,7 +1698,7 @@ class QuoteController extends Controller
 
               Storage::putFileAs('public/images/letterheads', $image, $filename);
 
-              $input['letterhead'] = $filename;
+              $poArr['letterhead'] = $filename;
               $chk = Storage::exists("public/images/letterheads",$filename);
               // $name = time().$files->getClientOriginalName();
               // $files->storeAs("public/images/letterheads",$name);
