@@ -79,6 +79,7 @@ class AdminUserManageController extends Controller
               $data = User::orderBy('id','desc')
                               ->where('name','LIKE',"%{$request->cust_name}%") 
                               ->where('user_type','=','C') 
+                              ->where('reg_by','=','P') 
                               ->get();
           }
            
@@ -87,7 +88,10 @@ class AdminUserManageController extends Controller
               //             ->leftjoin('address','users.id','address.user_id')                           
               //             ->select('users.id as user_id','users.id as user_id''address.*')
               //             ->get();
-              $data = User::orderBy('id','desc')->where('user_type','=','C')->get();
+              $data = User::orderBy('id','desc')
+                          ->where('user_type','=','C')
+                          ->where('reg_by','=','P') 
+                          ->get();
           }
           
           $catelist = [];
@@ -129,9 +133,9 @@ class AdminUserManageController extends Controller
             $addressdata = DB::table('users')
                     ->leftjoin('address','users.id','address.user_id')
                     ->where('users.id',$request->userId) 
-                    ->select('users.id as uid','users.zone as user_zone','address.*')
+                    ->select('users.id as uid','users.zone as user_zone','users.user_code as user_code','address.*')
                     ->get();  
-            
+            // dd($addressdata);
             return response()->json(['status'=>1,'message' =>'success.','result' => $addressdata],200);
           
         
