@@ -674,6 +674,8 @@ Route::group(['prefix' => 'admin','middleware' => ['assign.guard:admins','jwtmid
 
     // ------------------------------- admin notifcation ----------------------------------------
      Route::get('get_all_notifcation',[AdminNotificationController::class,'getAllNotifcation']);
+     Route::get('clear_notifcation_all',[AdminNotificationController::class,'clearNotifcationAll']);
+     Route::get('clear_notifcation/{id}',[AdminNotificationController::class,'clearNotifcation']);
     // ------------------------------------------------------------------------------------------
 
 });
