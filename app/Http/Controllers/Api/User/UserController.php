@@ -459,6 +459,8 @@ class UserController extends Controller
             $userData['gst_dt'] = base64_decode($request->gst_dt); 
             $userData['formD_dt'] = base64_decode($request->formD_dt); 
             $userData['tcs_dt'] = base64_decode($request->tcs_dt);
+            $userData['reg_by'] = 'P';
+           
 
             if ($request->hasFile('address_proof_file'))
             {
