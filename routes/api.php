@@ -62,6 +62,7 @@ use App\Http\Controllers\Api\Modules\Admin\RfqManagementController;
 use App\Http\Controllers\Api\Modules\Admin\LedgerController;
 use App\Http\Controllers\Api\Modules\Admin\CronSchedulerController;
 
+use App\Http\Controllers\Api\Modules\PoOptController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,7 +76,7 @@ use App\Http\Controllers\Api\Modules\Admin\CronSchedulerController;
 */
 // Route::post('login', [UserController::class, 'login']);
  
-// chk12
+// chk123
  
  
 // ----------------------------------- register -----------------------------------------
@@ -197,6 +198,8 @@ Route::get('so-excel-download/{contract_no?}',[SoTemporaryController::class,'SoE
 
 Route::group(['prefix' => 'user','middleware' => ['assign.guard:users', 'jwtmiddleware']],function ()
 {
+   Route::get('get_all_po_opt',[PoOptController::class,'getAllPoOpt']);
+
          Route::post('user-dashboard', [DashboardController::class,'userDashboard'])->name('user_dashboard');
 
 	    Route::post('logout', [AuthController::class,'logout']);
