@@ -153,6 +153,8 @@ Route::get('export-excel-threshold-price-admin',[PriceManagementController::clas
 
 Route::get('export-excel-cust-admin',[AdminUserManageController::class,'exportExcelCustAdmin']);
 
+Route::get('export-portal-cust-admin',[AdminUserManageController::class,'exportPortalCustAdmin']);
+
 Route::post('import-excel-threshold-price-admin',[PriceManagementController::class,'importExcelThresholdPriceAdmin']);
 
 Route::get('export-excel-freight-charges',[FreightController::class,'exportExcelFreightCharges']);

@@ -27,6 +27,16 @@ use Nullix\CryptoJsAes\CryptoJsAes;
 
 class AdminUserManageController extends Controller
 {
+    /**
+      * This for expost customer data in excel.
+      *
+      * @param  \App\Product  $product
+      * @return \Illuminate\Http\Response
+    */
+    public function exportPortalCustAdmin(Request $request)
+    {
+      dd('exportPortalCustAdmin');
+    } 
   /**
       * This for expost customer data in excel.
       *
