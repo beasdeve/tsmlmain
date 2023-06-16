@@ -9,6 +9,7 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Models\OtpVerification;
 use App\Mail\Register;
 use App\Models\User;
+use App\Models\Address;
 use App\Jobs\UserCreated;
 use App\Models\Models\Order;
 use App\Models\Models\Quote;
@@ -483,6 +484,8 @@ class AdminUserManageController extends Controller
 
               $updateuser = User::where('id',$getuser->id)->update($input);
 
+              $updateuser = Address::where('id',$getuser->id)
+                                    ->update(['cus_code'=>$request->cust_sap_code]);
      
               return response()->json(['status'=>1,'message' =>'Customer SAP code updated successfully.']);
                
