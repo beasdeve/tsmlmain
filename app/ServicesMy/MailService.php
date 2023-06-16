@@ -41,7 +41,7 @@ class MailService
               
 
                 $mail->setFrom('developer@beas.co.in', 'TSML Team');
-                $mail->addAddress($sentTo);
+                $mail->addAddress('sourav.mondal@beas.co.in');
                 
                 // if (!empty($emailcc)) 
                 // {

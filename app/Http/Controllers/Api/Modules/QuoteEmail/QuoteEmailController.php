@@ -124,7 +124,10 @@ class QuoteEmailController extends Controller
          // $data['email'] = $user['email'];
          // $data['rfq_no'] = $rfq_no;
          // $data['cc'] = $cc_email;
-         // // echo "<pre>";print_r($data);exit();
+         array_push($cc_email, 'mihirbhunia.partners@tatasteelmining.com');
+         array_push($cc_email, 'rahul.maurya@mjunction.in');
+         array_push($cc_email, 'siddharth.mishra@tatasteelmining.com');
+         // echo "<pre>";print_r($cc_email);exit();
 
          // Mail::send(new OrderConfirmationMail($data));
          (new MailService)->dotestMail($sub,$html,$user['email'],$data,$cc_email);
