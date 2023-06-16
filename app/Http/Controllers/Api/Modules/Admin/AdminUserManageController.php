@@ -480,12 +480,14 @@ class AdminUserManageController extends Controller
             $getuser = User::where('id',$request->user_id)->first();
             if(!empty($getuser))
             { 
-              $input['user_code'] = $request->cust_sap_code;  
+              $input['user_code'] = $request->cust_sap_code;
+              $inputs['cus_code'] = $request->cust_sap_code;  
 
               $updateuser = User::where('id',$getuser->id)->update($input);
 
-              $updateuser = Address::where('user_id',$request->user_id)
-                                    ->update(['cus_code'=>$request->cust_sap_code]);
+              $updateuser = DB::table('address')
+                              ->where('user_id',$request->user_id)
+                              ->update($inputs);
      
               return response()->json(['status'=>1,'message' =>'Customer SAP code updated successfully.']);
                
