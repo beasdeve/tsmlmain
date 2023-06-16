@@ -699,6 +699,7 @@ class DoController extends Controller
                // ->select('sales_orders.so_no','sales_orders.co_no','orders.rfq_no','orders.po_no','quotes.user_id as cus_id')
                // ->get();
                $user =  Auth::user()->id;
+               // $user =  151;
                $plantname = DB::table('users')->where('id',$user)->first();
                $plantcode = DB::table('plants')->where('name',$plantname->org_name)->first();
                $res = DB::table('sc_excel_datas')->where('Plant',$plantcode->code)->select('Cust_Referance','id','ordr_no','sc_no')->get();
@@ -713,12 +714,14 @@ class DoController extends Controller
                foreach ($res as $key => $value) {
                   
                   $getscdata = $this->newscnoget($value->Cust_Referance);
-                  // dd($getscdata['rfq_no']);
+                  // dd($getscdata['status']);
+
                   $arra[$key]['so_no'] = $value->ordr_no;
                   $arra[$key]['co_no'] = $value->sc_no;
                   $arra[$key]['rfq_no'] = $getscdata['rfq_no'];
                   $arra[$key]['po_no'] = $getscdata['po_no'];
                   $arra[$key]['cus_id'] = $getscdata['cus_id'];
+                  $arra[$key]['status'] = $getscdata['status'];
       
                   
                }
@@ -742,14 +745,15 @@ class DoController extends Controller
                ->leftjoin('users','quotes.user_id','users.id')
                ->whereNull('quotes.deleted_at')->groupBy('quotes.rfq_no')
                ->where('orders.cus_po_no',$cust_referance)
-               ->select('orders.rfq_no','orders.po_no','quotes.user_id as cus_id','users.org_name')
+               ->select('orders.rfq_no','orders.po_no','quotes.user_id as cus_id','users.org_name','orders.status')
                ->first();
 
          $data['rfq_no'] = $res->rfq_no;
          $data['po_no'] = $res->po_no;
          $data['cus_id'] = $res->cus_id;
          $data['org_name'] = $res->org_name;
-
+         $data['status'] = $res->status;
+         
          return $data;
 
     }

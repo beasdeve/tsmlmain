@@ -64,6 +64,7 @@ class BulkController extends Controller
                 $user->company_pan = $val[200];
                 $user->addressone = $val[6];
                 $user->zone = $val[10];
+                $user->reg_by = 'U';
 
                 $user->save();
                 }
