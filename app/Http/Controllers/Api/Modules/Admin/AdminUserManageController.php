@@ -34,7 +34,12 @@ class AdminUserManageController extends Controller
     */
     public function exportExcelCustAdmin(Request $request)
     {
-         $res = DB::table('address')->leftjoin('users','address.user_id','users.id')->select('users.phone as uphone','address.*')->whereNotNull('address.cus_code')->get()->toArray();
+         $res = DB::table('address')
+                        ->leftjoin('users','address.user_id','users.id')
+                        ->select('users.phone as uphone','address.*')
+                        ->whereNotNull('address.cus_code')
+                        ->get()
+                        ->toArray();
          // dd($res);
 
          if(!empty($res))
