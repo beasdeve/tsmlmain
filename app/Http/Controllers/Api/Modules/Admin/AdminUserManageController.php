@@ -38,6 +38,7 @@ class AdminUserManageController extends Controller
          $res = DB::table('address')
                         ->leftjoin('users','address.user_id','users.id')
                         ->select('users.phone as uphone','address.*')
+                        ->where('users.reg_by','U')
                         ->whereNotNull('address.cus_code')
                         ->get()
                         ->toArray();
