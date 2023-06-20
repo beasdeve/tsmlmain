@@ -35,7 +35,40 @@ class AdminUserManageController extends Controller
     */
     public function exportPortalCustAdmin(Request $request)
     {
-      dd('exportPortalCustAdmin');
+      // dd('exportPortalCustAdmin');
+      $res = DB::table('address')
+                        ->leftjoin('users','address.user_id','users.id')
+                        ->select('users.phone as uphone','address.*')
+                        ->where('users.reg_by','P')
+                        // ->whereNotNull('address.cus_code')
+                        ->get()
+                        ->toArray();
+         // dd($res);
+
+        if(!empty($res))
+          {
+            foreach ($res as $key => $value) {
+              
+              $result[$key]['cus_code'] = $value->cus_code;
+              $result[$key]['phone'] = $value->uphone;
+              $result[$key]['company_name'] = $value->company_name;
+              $result[$key]['addressone'] = $value->addressone;
+              $result[$key]['addresstwo'] = $value->addresstwo;
+              $result[$key]['city'] = $value->city;
+              $result[$key]['state'] = $value->state;
+              $result[$key]['pincode'] = $value->pincode;
+              if($value->type == 'A')
+              {
+                 $type = 'Shipping';
+              }else{
+                $type = 'Billing';
+              }
+              $result[$key]['type'] = $type;
+
+            }
+
+              return Excel::download(new ExportCust($result), 'portal_cus_details.xlsx');
+          }
     } 
   /**
       * This for expost customer data in excel.

@@ -77,7 +77,7 @@ use App\Http\Controllers\Api\Modules\PoOptController;
 */
 // Route::post('login', [UserController::class, 'login']);
  
-// chk123
+// chk123 partha
  
  
 // ----------------------------------- register -----------------------------------------
