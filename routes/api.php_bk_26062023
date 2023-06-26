@@ -460,7 +460,6 @@ Route::group(['prefix' => 'user','middleware' => ['assign.guard:users', 'jwtmidd
           Route::get('customer_list_ledger/{id}',[LedgerController::class,'customerListLedger']);
          // ------------------------------------------------------------------
     //  });
-          Route::get('onbehalf_category',[PoOptController::class,'onbehalfCategory']);
 
 });
 
