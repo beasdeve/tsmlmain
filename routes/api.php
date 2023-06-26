@@ -201,7 +201,7 @@ Route::get('so-excel-download/{contract_no?}',[SoTemporaryController::class,'SoE
   Route::get('reject_by_validtill',[CronSchedulerController::class,'rejectByValidtill']);
 // ---------------------------------------------------------------------------------------
 
-Route::group(['prefix' => 'user','middleware' => ['assign.guard:users', 'jwtmiddleware']],function ()
+Route::group(['prefix' => 'user'],function ()
 {
    Route::get('get_all_po_opt',[PoOptController::class,'getAllPoOpt']);
 
@@ -458,6 +458,8 @@ Route::group(['prefix' => 'user','middleware' => ['assign.guard:users', 'jwtmidd
           Route::get('customer_list_ledger/{id}',[LedgerController::class,'customerListLedger']);
          // ------------------------------------------------------------------
     //  });
+
+         Route::get('onbehalf_category',[PoOptController::class,'onbehalfCategory']);
 
 });
 
