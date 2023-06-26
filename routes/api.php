@@ -199,6 +199,7 @@ Route::get('so-excel-download/{contract_no?}',[SoTemporaryController::class,'SoE
 // ------------------------- cron scheduler ---------------------------------------------
 
   Route::get('reject_by_validtill',[CronSchedulerController::class,'rejectByValidtill']);
+  Route::get('cam-customer-list',[AdminUserManageController::class,'camCustomerList'])->name('cam_castomer_list');
 // ---------------------------------------------------------------------------------------
 
 Route::group(['prefix' => 'user','middleware' => ['assign.guard:users', 'jwtmiddleware']],function ()
