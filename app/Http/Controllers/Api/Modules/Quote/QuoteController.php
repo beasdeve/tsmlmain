@@ -229,11 +229,19 @@ class QuoteController extends Controller
       $password = "123456";
 
       $decrypted = CryptoJsAes::decrypt($encrypted, $password);
-      // dd($decrypted);
+      // dd($decrypted[0]['product_id']);
 
         $quoteArr = array();
+        
+        $type = Auth::user()->user_type;
 
-        $user_id = Auth::user()->id;
+        if($type == 'C')
+        {
+           $user_id = Auth::user()->id;
+         }else{
+
+            $user_id = $decrypted[0]['user_id'];
+         }
 
         // $rfq_number = (!empty($request->input('rfq_number'))) ? $request->input('rfq_number') : '';
         $quote_id = "";
@@ -245,6 +253,7 @@ class QuoteController extends Controller
           $array['quote_type'] = $value['quote_type'];
           $array['kam_status'] = 0;
           $array['quote_schedules'] = $value['quote_schedules'];
+          $array['rfq_type'] = $value['rfq_type'];
           $rfq_number = $value['rfq_number'];
 
           if(!empty($value['quantity']) ){
@@ -363,6 +372,7 @@ class QuoteController extends Controller
         $quoteArr['quantity'] = $request->input('quantity');
         $quoteArr['quote_type'] = $request->input('quote_type');
         $quoteArr['kam_status'] = $request->input('kam_status');
+        $quoteArr['rfq_type'] = $request->input('rfq_type');
         $quoteArr['rfq_no'] = $rfq_number;
         $quoteArr['quote_no']  = rand(100,9999);
 
@@ -742,6 +752,7 @@ class QuoteController extends Controller
             $result[$key]['status'] = $value['product']['status'];
             $result[$key]['quotest'] = $value['kam_status'];
             $result[$key]['quote_type'] = $value['quote_type'];
+            $result[$key]['rfq_type'] = $value['rfq_type'];
             $result[$key]['primary_image_url'] = asset('storage/app/public/images/product/'.$value['category']['primary_image']);
             $result[$key]['schedule'] = $this->getSubcatname($value['schedules'],$value['rfq_no']);
             $result[$key]['quote_id'] = $value['id'];
