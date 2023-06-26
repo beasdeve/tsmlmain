@@ -201,7 +201,7 @@ Route::get('so-excel-download/{contract_no?}',[SoTemporaryController::class,'SoE
   Route::get('reject_by_validtill',[CronSchedulerController::class,'rejectByValidtill']);
 // ---------------------------------------------------------------------------------------
 
-Route::group(['prefix' => 'user','middleware' => ['assign.guard:users', 'jwtmiddleware']],function ()
+Route::group(['prefix' => 'user'],function ()
 {
    Route::get('get_all_po_opt',[PoOptController::class,'getAllPoOpt']);
 
@@ -452,6 +452,7 @@ Route::group(['prefix' => 'user','middleware' => ['assign.guard:users', 'jwtmidd
           // -------------------------------------------------------------------
            // ----------------------- rfq mis sales -------------------------------
            Route::post('sales_mis_list',[OrderManagementController::class,'salesMisList']);
+           Route::post('sales_order_list',[OrderManagementController::class,'salesOrderList']);
           // -------------------------------------------------------------------
 
          //------------  sap customer ledger ---------------------------------
