@@ -27,6 +27,45 @@ use Nullix\CryptoJsAes\CryptoJsAes;
 
 class AdminUserManageController extends Controller
 {
+  /**
+      * This for customer list admin.
+      *
+      * @param  \App\Product  $product
+      * @return \Illuminate\Http\Response
+    */
+    public function camCustomerList(Request $request)
+    { 
+      $response = [];
+        try{         
+          
+          
+              // $data = DB::table('users')
+              //             ->leftjoin('address','users.id','address.user_id')                           
+              //             ->select('users.id as user_id','users.id as user_id''address.*')
+              //             ->get();
+              $data = User::orderBy('id','ASC')
+                          ->where('user_type','=','C')
+                          ->where('user_code','!=',NULL)
+                          // ->where('user_status','!=',3) 
+                          ->get();
+          
+          
+          $catelist = [];
+            foreach ($data as $key => $value) 
+            {               
+              $catdata['user_id'] = $value->id; 
+              $catdata['email'] = $value->email;
+              $catdata['name'] = $value->name; 
+              $catelist[] = $catdata;
+            } 
+          return response()->json(['status'=>1,'message' =>'success.','result' => $catelist],200);
+          
+        
+        }catch(\Exception $e){
+            $response['error'] = $e->getMessage();
+            return response()->json([$response]);
+        }
+    }
     /**
       * This for expost customer data in excel.
       *

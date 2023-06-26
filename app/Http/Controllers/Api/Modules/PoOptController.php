@@ -14,13 +14,6 @@ class PoOptController extends Controller
 
 	    try{ 
            
-         	// $results = DB::table('orders as od')
-         	// ->rightjoin('sc_excel_datas as sed','od.cus_po_no','sed.Cust_Referance')
-         	// ->rightjoin('delivery_orders as do','sed.ordr_no','do.so_no')
-         	// ->select('od.po_no','od.cus_po_no','od.rfq_no','sed.QtyContractTSML',DB::raw('SUM(do.do_quantity) as total_do_qt'))
-         	// ->where('od.cus_po_no','!=',"")
-         	// ->get();
-
 			$order_results = DB::table('orders')
 	        ->where('orders.cus_po_no','!=',"")
 	        // ->where('orders.status','!=',8)
@@ -68,5 +61,37 @@ class PoOptController extends Controller
 
     	 
     }
+
+    public function onbehalfCategory()
+    {
+    	
+	    try{
+
+	    	$onbehalf_data = DB::table('onbehalf_category')
+	        ->select('id','name')
+	        ->get();
+
+	        $onbehalf_results = [];
+         	foreach ($onbehalf_data as $key => $value) {
+
+         		$onbehalf_results[] = array(
+		        	"id" => $value->id,
+		        	"name" => $value->name,
+		        );
+         	}
+
+         	return response()->json([
+		        'status'=>1,
+		        'message' =>'success',
+		        'result' => $onbehalf_results
+	        ],
+	        config('global.success_status'));
+
+	    }catch(\Exception $e){
+
+        	return response()->json(['status'=>0,'message' =>'error','result' => $e->getMessage()],config('global.failed_status'));
+    	}
+
+	}
 
 }
