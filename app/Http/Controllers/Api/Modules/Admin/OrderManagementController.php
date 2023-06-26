@@ -25,7 +25,6 @@ class OrderManagementController extends Controller
        
         $validation = \Validator::make($request->all(),[  
             "user_id" => "required", 
-            "rfq_no" => "required",
             "remarks" => "required",
                
         ]);
