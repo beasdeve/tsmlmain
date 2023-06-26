@@ -199,6 +199,8 @@ Route::get('so-excel-download/{contract_no?}',[SoTemporaryController::class,'SoE
 // ------------------------- cron scheduler ---------------------------------------------
 
   Route::get('reject_by_validtill',[CronSchedulerController::class,'rejectByValidtill']);
+  Route::get('cam-customer-list',[AdminUserManageController::class,'camCustomerList'])->name('cam_castomer_list');
+   Route::post('cam-rfqsubmit-behalf-cust',[OrderManagementController::class,'camEfqsubmitBehalfCust'])->name('cam_rfqsubmit_behalf_cust');
 // ---------------------------------------------------------------------------------------
 
 Route::group(['prefix' => 'user'],function ()

@@ -9,10 +9,52 @@ use App\Exports\ExportOrder;
 use App\Exports\ExportMis;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Models\ProductSizeMatNoModel;
+use App\Models\Models\CamRfqSubmit;
 use DB;
 
 class OrderManagementController extends Controller
 {
+  /**
+     * This is for store new product from admin.
+     *
+     * @param  \App\Product  $product
+     * @return \Illuminate\Http\Response
+     */
+   public function camEfqsubmitBehalfCust(Request $request)
+   {
+       
+        $validation = \Validator::make($request->all(),[  
+            "user_id" => "required", 
+            "rfq_no" => "required",
+            "remarks" => "required",
+               
+        ]);
+
+        if ($validation->fails()) {
+            return response()->json(['status'=>0,'errors'=>$validation->errors()],200);
+        }
+
+         
+        $input['user_id'] = $request->user_id;
+        $input['on_behalf_cate_id'] = $request->on_behalf_cate_id; 
+        $input['rfq_no'] = $request->rfq_no;
+        $input['remarks'] = $request->remarks; 
+         
+         
+
+        $productData = CamRfqSubmit::create($input); 
+
+        // $user = Auth::user()->id;
+        // $sub = 'Product Created';
+        // $purpose = 'Product Created';
+
+        // $res = (new AdminLogsService)->adminlogs($user,$sub,$purpose);
+
+        
+
+        return response()->json(['status'=>1,'message' =>'Request submited successfully.','result' => $productData],200);
+      
+    }
         /**
     	* This for admin orders management.
      	*
