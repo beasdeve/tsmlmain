@@ -454,6 +454,7 @@ Route::group(['prefix' => 'user','middleware' => ['assign.guard:users', 'jwtmidd
           // -------------------------------------------------------------------
            // ----------------------- rfq mis sales -------------------------------
            Route::post('sales_mis_list',[OrderManagementController::class,'salesMisList']);
+           Route::post('sales_order_list',[OrderManagementController::class,'salesOrderList']);
           // -------------------------------------------------------------------
 
          //------------  sap customer ledger ---------------------------------
