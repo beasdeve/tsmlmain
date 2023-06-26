@@ -11,7 +11,7 @@ class Quote extends Model
 
      protected $table = "quotes";
 
-     protected $fillable = ['user_id','product_id','cat_id','rfq_no','quantity','quote_no','kam_status','cus_status','quote_type','reject_reason','valid_till','created_at','updated_at'];
+     protected $fillable = ['user_id','product_id','cat_id','rfq_no','quantity','quote_no','rfq_type','kam_status','cus_status','quote_type','reject_reason','valid_till','created_at','updated_at'];
 
      protected $dates = ['deleted_at'];
 
