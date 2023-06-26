@@ -149,6 +149,7 @@ Route::post('sc_mail', [QuoteEmailController::class,'scMail']);
 // Excel Import Export.....
 
 Route::get('export-excel-sales-mis',[OrderManagementController::class,'salesMisExcel']);
+Route::get('export-excel-sales-order-list',[OrderManagementController::class,'salesOrderListExcel']);
 Route::get('export-excel-threshold-price-admin',[PriceManagementController::class,'exportExcelThresholdPriceAdmin']);
 
 Route::get('export-excel-cust-admin',[AdminUserManageController::class,'exportExcelCustAdmin']);

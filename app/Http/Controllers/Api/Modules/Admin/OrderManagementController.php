@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Nullix\CryptoJsAes\CryptoJsAes;
 use App\Exports\ExportOrder;
 use App\Exports\ExportMis;
+use App\Exports\ExportSalesOrder;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Models\ProductSizeMatNoModel;
 use App\Models\Models\CamRfqSubmit;
@@ -657,8 +658,8 @@ class OrderManagementController extends Controller
            if(!empty($request->customer))
            {
                $user = DB::table('users')->where('org_name',$request->customer)->first();
-               // dd($cityids);
-               $quote = $quote->whereIn('quotes.user_id',$user->id);
+               // dd($user->id);
+               $quote = $quote->where('quotes.user_id',$user->id);
            }
 
            // if(!empty($request->plant))
@@ -715,14 +716,89 @@ class OrderManagementController extends Controller
           {
               foreach ($quote as $key => $value) {
                    
-                   $arr[$key]['sche_no'] =$value->quote_sche_no;
+                   // $arr[$key]['sche_no'] =$value->quote_sche_no;
                    $arr[$key]['to_date'] =$value->to_date;
-                   $arr[$key]['from_date'] =$value->from_date;
+                   // $arr[$key]['from_date'] =$value->from_date;
                    $arr[$key]['qty'] =$value->qty;
               }
           }
 
            return $arr;
+    }
+
+
+
+     public function salesOrderListExcel(Request $request)
+    {
+
+ 
+    $result = [];
+        try{         
+          
+            $quote = DB::table('quote_schedules')
+           ->leftjoin('quotes','quote_schedules.quote_id','quotes.id')
+           ->leftjoin('orders','quotes.rfq_no','orders.rfq_no')
+           ->leftjoin('rfq_status_refs','quotes.kam_status','rfq_status_refs.status')
+           ->leftjoin('users','quotes.user_id','users.id')
+           ->select('quotes.rfq_no','quotes.user_id','users.org_name','orders.status','quotes.updated_at','quote_schedules.quantity as scheqty','quote_schedules.plant','quote_schedules.pro_size','rfq_status_refs.st_text','quote_schedules.schedule_no')
+           ->orderBy('quote_schedules.updated_at','desc');
+           // ->groupBy('quotes.rfq_no');
+           
+           if(!empty($request->rfq_no) && $request->rfq_no != "undefined")
+           {
+                $quote = $quote->where('quotes.rfq_no',$request->rfq_no);
+           }
+
+           if(!empty($request->customer) && $request->customer != "undefined")
+           {
+               $user = DB::table('users')->where('org_name',$request->customer)->first();
+               // dd($cityids);
+               $quote = $quote->where('quotes.user_id',$user->id);
+           }
+
+           // if(!empty($request->plant))
+           // {
+           //     $quote = $quote->where('quote_schedules.plant',$request->plant);
+           // }
+
+           
+           $quote = $quote->whereNull('quote_schedules.deleted_at')
+           ->get()->toArray();
+           // echo "<pre>";print_r($quote);exit();
+
+          if(!empty($quote))
+          {
+          foreach ($quote as $key => $value) {
+           
+           
+            $result[$key]['user'] = $value->org_name;
+            $result[$key]['rfq_no'] = $value->rfq_no;
+            $result[$key]['quantity'] = $value->scheqty;
+            $date =  date_create($value->updated_at);
+            $po_dt = date_format($date,"d/m/Y");
+            $result[$key]['po_date'] = $po_dt;
+            $result[$key]['plant'] = $value->plant;
+            $result[$key]['size'] = $value->pro_size;
+            $result[$key]['tentative'] = $this->tentative($value->schedule_no);
+            $result[$key]['status'] = $value->st_text;
+
+
+          }
+
+          return Excel::download(new ExportSalesOrder($result), 'salesorderlist.xlsx');
+        }
+        else{
+          $result = [];
+        }
+
+          return response()->json(['status'=>1,'message' =>'success.','result' => $result],200);
+          
+        
+        }catch(\Exception $e){
+            $response['error'] = $e->getMessage();
+            return response()->json([$response]);
+        }
+
     }
     // ---------------------------------------------------------------------------------
 
