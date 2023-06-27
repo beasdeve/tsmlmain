@@ -229,7 +229,7 @@ class QuoteController extends Controller
       $password = "123456";
 
       $decrypted = CryptoJsAes::decrypt($encrypted, $password);
-      // dd($decrypted[0]['product_id']);
+      // dd($decrypted);
 
         $quoteArr = array();
         
@@ -319,6 +319,7 @@ class QuoteController extends Controller
           $array['cat_id'] = $value['cat_id'];
           $array['quantity'] = $value['quantity'];
           $array['quote_type'] = $value['quote_type'];
+          $array['rfq_type'] = $value['rfq_type'];
           $array['kam_status'] = (!empty($quote_id->kam_status)) ? $quote_id->kam_status : 0;
           $array['quote_schedules'] = $value['quote_schedules'];
           $rfq_number = $value['rfq_number'];
