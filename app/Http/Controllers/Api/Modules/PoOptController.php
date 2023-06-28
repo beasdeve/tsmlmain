@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Modules;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Models\OnBehalfCategory;
 use DB;
 
 class PoOptController extends Controller
@@ -92,6 +93,32 @@ class PoOptController extends Controller
         	return response()->json(['status'=>0,'message' =>'error','result' => $e->getMessage()],config('global.failed_status'));
     	}
 
+	}
+
+	public function onbehalfCategoryAdd( Request $request )
+    {
+    	
+    	try{
+
+		    $validation = \Validator::make($request->all(),[ 
+	    		 
+	        "name" => "required", 
+	        ]);
+
+	        if ($validation->fails()) {
+	            return response()->json(['status'=>0,'errors'=>$validation->errors()],200);
+	        }
+
+	        $input['name'] = $request->name;
+
+	        $categoryData = OnBehalfCategory::create($input); 
+
+	   	  	return response()->json(['status'=>1,'message' =>'Ctegory added successfully.','result' => $categoryData],200);
+
+	   	}catch(\Exception $e){
+
+        	return response()->json(['status'=>0,'message' =>'error','result' => $e->getMessage()],config('global.failed_status'));
+    	}
 	}
 
 }

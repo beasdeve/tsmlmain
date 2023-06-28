@@ -463,6 +463,7 @@ Route::group(['prefix' => 'user','middleware' => ['assign.guard:users', 'jwtmidd
          // ------------------------------------------------------------------
     //  });
           Route::get('onbehalf_category',[PoOptController::class,'onbehalfCategory']);
+          Route::post('onbehalf_category_add',[PoOptController::class,'onbehalfCategoryAdd']);
 
 });
 
