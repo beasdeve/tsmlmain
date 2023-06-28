@@ -1518,7 +1518,7 @@ class QuoteController extends Controller
            ->leftjoin('products','quotes.product_id','products.id')
            ->leftjoin('categorys','quotes.cat_id','categorys.id')
            // ->leftjoin('sub_categorys','categorys.id','sub_categorys.cat_id')
-           ->select('quotes.rfq_no','quotes.user_id','quotes.id as qid','products.slug','products.status','categorys.*','users.id','products.id as pid','categorys.id as cid','quotes.quantity')
+           ->select('quotes.rfq_no','quotes.rfq_type','quotes.user_id','quotes.id as qid','products.slug','products.status','categorys.*','users.id','products.id as pid','categorys.id as cid','quotes.quantity')
            ->orderBy('quotes.updated_at','desc')
            ->where('quotes.rfq_no',$id)
            ->whereNull('quotes.deleted_at')
@@ -1548,6 +1548,7 @@ class QuoteController extends Controller
             $result[$key]['quote_id'] = $value->qid;
             $result[$key]['user_id'] = $value->user_id;
             $result[$key]['rfq_no'] = $value->rfq_no;
+            $result[$key]['rfq_type'] = $value->rfq_type;
             $result[$key]['quantity'] = $value->quantity;
 
           }
@@ -1781,7 +1782,7 @@ class QuoteController extends Controller
            ->leftjoin('products','quotes.product_id','products.id')
            ->leftjoin('categorys','quotes.cat_id','categorys.id')
            // ->leftjoin('sub_categorys','categorys.id','sub_categorys.cat_id')
-           ->select('quotes.rfq_no','quotes.user_id','quotes.id as qid','products.slug','products.status','categorys.*','users.id','products.id as pid','categorys.id as cid','quotes.quantity','orders.letterhead','orders.po_no','orders.cus_po_no','orders.po_date','orders.status as po_st','orders.amdnt_no')
+           ->select('quotes.rfq_no','quotes.user_id','quotes.id as qid','products.slug','products.status','categorys.*','users.id','products.id as pid','categorys.id as cid','quotes.quantity','orders.letterhead','orders.po_no','orders.cus_po_no','orders.po_date','orders.status as po_st','orders.amdnt_no','quotes.rfq_type')
            ->orderBy('quotes.updated_at','desc')
            ->where('orders.po_no',$id)
            ->whereNull('quotes.deleted_at')
@@ -1811,6 +1812,7 @@ class QuoteController extends Controller
             $result[$key]['quote_id'] = $value->qid;
             $result[$key]['user_id'] = $value->user_id;
             $result[$key]['rfq_no'] = $value->rfq_no;
+            $result[$key]['rfq_type'] = $value->rfq_type;
             $result[$key]['quantity'] = $value->quantity;
             $result[$key]['po_no'] = $value->po_no;
             $result[$key]['cus_po_no'] = $value->cus_po_no;
