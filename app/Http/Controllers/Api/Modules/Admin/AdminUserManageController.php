@@ -43,8 +43,11 @@ class AdminUserManageController extends Controller
               //             ->leftjoin('address','users.id','address.user_id')                           
               //             ->select('users.id as user_id','users.id as user_id''address.*')
               //             ->get();
+              $kzone = User::where('id',$request->kam_id)->first();
+              
               $data = User::orderBy('id','ASC')
                           ->where('user_type','=','C')
+                          ->where('zone','=',$kzone->zone)
                           ->where('user_code','!=',NULL)
                           // ->where('user_status','!=',3) 
                           ->get();
