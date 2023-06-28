@@ -102,7 +102,7 @@ class PoOptController extends Controller
 
 		    $validation = \Validator::make($request->all(),[ 
 	    		 
-	        "name" => "required", 
+	        "name" => "required|unique:onbehalf_category", 
 	        ]);
 
 	        if ($validation->fails()) {
