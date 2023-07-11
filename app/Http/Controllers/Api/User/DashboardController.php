@@ -141,6 +141,43 @@ class DashboardController extends Controller
 
 			$data['ex_work_confirmed_orders'] = $exworkcons;
 
+		    $fromdatem = date("Y").'-'.date('m').'-'.'01';
+			$todatem = date("Y-m-d");
+	         
+	         
+
+	         // dd($fromdatem,$todatem);
+
+			$volumeConPlant = DB::table('quote_schedules')
+   		 					->leftjoin('quotes','quote_schedules.quote_id','quotes.id')
+   		 					->where('quote_schedules.plant',$orgname)
+   		 					// ->where('quote_schedules.pickup_type','=',$plantId->type) 
+   		 					->where('quotes.kam_status',4)
+				            ->where('quotes.created_at','>=', $fromdatem)
+			                ->where('quotes.created_at','<=', $todatem) 
+				            ->whereNull('quotes.deleted_at') 
+				            ->select('quote_schedules.id') 
+				            ->sum('quote_schedules.quantity');	      
+			 
+	        
+	       	$data['volumeConPlantMon'] = $volumeConPlant;
+
+
+	       	$volumeConDap = DB::table('quote_schedules')
+   		 					->leftjoin('quotes','quote_schedules.quote_id','quotes.id')
+   		 					->where('quote_schedules.plant',$orgname)
+   		 					->where('quote_schedules.delivery','=','DAP (Delivered at Place)') 
+   		 					->where('quotes.kam_status',4)
+				            ->where('quotes.created_at','>=', $fromdatem)
+			                ->where('quotes.created_at','<=', $todatem) 
+				            ->whereNull('quotes.deleted_at') 
+				            ->select('quote_schedules.id') 
+				            ->sum('quote_schedules.quantity');	      
+			 
+	        
+	       	$data['volumeConDapMon'] = $volumeConDap;
+ 
+
 	       	 
    		 }
 	  	 

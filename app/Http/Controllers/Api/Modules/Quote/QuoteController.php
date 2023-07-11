@@ -652,6 +652,7 @@ class QuoteController extends Controller
           $quoteArr[$key]['quote_id'] = $value->id;
           $quoteArr[$key]['user_id'] = $value->user_id;
           $quoteArr[$key]['rfq_no'] = $value->rfq_no;
+          $quoteArr[$key]['rfq_type'] = $value->rfq_type;
           $quoteArr[$key]['quantity'] = $this->rfqtotQt($value->rfq_no);
           $quoteArr[$key]['kam_status'] = $value->kam_status;
           $quoteArr[$key]['name'] = $value->name;
@@ -1278,6 +1279,7 @@ class QuoteController extends Controller
           $quoteArr[$key]['quote_id'] = $value->id;
           $quoteArr[$key]['user_id'] = $value->user_id;
           $quoteArr[$key]['rfq_no'] = $value->rfq_no;
+          $quoteArr[$key]['rfq_type'] = $value->rfq_type;
           $quoteArr[$key]['quantity'] = $this->rfqtotQt($value->rfq_no);
           $quoteArr[$key]['kam_status'] = $value->kam_status;
           $quoteArr[$key]['name'] = $value->name;
@@ -2060,8 +2062,8 @@ class QuoteController extends Controller
                                                    .''.$value->billtocity.''.$value->billtostate.', '.$value->billtopincode;
              $quote_sches[$key]['ship_to_addr'] = $value->shiptoaddressone.''.$value->shiptoaddresstwo
                                                    .''.$value->shiptocity.''.$value->shiptostate.', '.$value->shiptopincode;
-             $quote_sches[$key]['bill_to_state'] = $value->billtostate;
-             $quote_sches[$key]['ship_to_state'] = $value->shiptostate;
+             $quote_sches[$key]['bill_to_state'] = $value->billtocity;
+             $quote_sches[$key]['ship_to_state'] = $value->shiptocity;
 
 
 
