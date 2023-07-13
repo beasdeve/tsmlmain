@@ -176,8 +176,37 @@ class DashboardController extends Controller
 			 
 	        
 	       	$data['volumeConDapMon'] = $volumeConDap;
- 
 
+	       	$volumeConPlanty = DB::table('quote_schedules')
+   		 					->leftjoin('quotes','quote_schedules.quote_id','quotes.id')
+   		 					->where('quote_schedules.plant',$orgname)
+   		 					// ->where('quote_schedules.pickup_type','=',$plantId->type) 
+   		 					->where('quotes.kam_status',4)
+				            ->where('quotes.created_at','>=', $fromdate)
+			                ->where('quotes.created_at','<=', $todate) 
+				            ->whereNull('quotes.deleted_at') 
+				            ->select('quote_schedules.id') 
+				            ->sum('quote_schedules.quantity');	      
+			 
+	        
+	       	$data['volumeConPlantYear'] = $volumeConPlanty;
+
+
+	       	$volumeConDapy = DB::table('quote_schedules')
+   		 					->leftjoin('quotes','quote_schedules.quote_id','quotes.id')
+   		 					->where('quote_schedules.plant',$orgname)
+   		 					->where('quote_schedules.delivery','=','DAP (Delivered at Place)') 
+   		 					->where('quotes.kam_status',4)
+				            ->where('quotes.created_at','>=', $fromdate)
+			                ->where('quotes.created_at','<=', $todate) 
+				            ->whereNull('quotes.deleted_at') 
+				            ->select('quote_schedules.id') 
+				            ->sum('quote_schedules.quantity');	      
+			 
+	        
+	       	$data['volumeConDapYear'] = $volumeConDapy;
+ 
+            $data['plant_type'] = $plantId->type;
 	       	 
    		 }
 	  	 

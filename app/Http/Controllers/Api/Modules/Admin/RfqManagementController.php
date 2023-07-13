@@ -28,7 +28,7 @@ class RfqManagementController extends Controller
             $quote = DB::table('quotes')
            ->leftjoin('users','quotes.user_id','users.id')
            ->leftjoin('rfq_status_refs','quotes.kam_status','rfq_status_refs.status')
-           ->select('quotes.rfq_no','quotes.user_id','users.name','quotes.quantity','rfq_status_refs.st_text as status','quotes.updated_at','quotes.id','quotes.kam_status','quotes.quote_type')
+           ->select('quotes.rfq_no','quotes.user_id','users.name','quotes.quantity','rfq_status_refs.st_text as status','quotes.updated_at','quotes.id','quotes.kam_status','quotes.quote_type','quotes.rfq_type')
            ->orderBy('quotes.updated_at','desc')
            ->groupBy('quotes.rfq_no');
            
@@ -65,6 +65,7 @@ class RfqManagementController extends Controller
             $result[$key]['id'] = $value->id;
             $result[$key]['user'] = $value->name;
             $result[$key]['rfq_no'] = $value->rfq_no;
+            $result[$key]['rfq_type'] = $value->rfq_type;
             $result[$key]['created_at'] = date("d/m/Y", strtotime($create->created_at));
             $result[$key]['quantity'] = $value->quantity;
             $date =  date_create($value->updated_at);
